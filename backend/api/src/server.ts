@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from "express";
-import TravelRoute from "@tripolite/common/dm/travel-route";
+import TravelRoute from "@tripolite/common/model/travel-route";
 
 const app: Express = express();
 const port = 3000;

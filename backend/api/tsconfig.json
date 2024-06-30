@@ -1,14 +1,29 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "esnext",
-    "module": "commonjs",
-    "esModuleInterop": true,
+    "rootDirs": [
+      "./src"
+    ],
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "outDir": "./dist",
-    "skipLibCheck": true
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@tripolite/common/*": ["../../common/*"]
+    }
   },
+  "references": [
+    {
+      "path": "../../common"
+    }
+  ],
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
