@@ -1,0 +1,25 @@
+{
+  "name": "tripolite",
+  "version": "0.0.1",
+  "description": "Truxweb Coding Test project that intends to demo my full stack skills around typescript",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EliuX/tripolite.git"
+  },
+  "keywords": [
+    "truxweb",
+    "travel",
+    "agency",
+    "coding-test"
+  ],
+  "author": "EliuX",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EliuX/tripolite/issues"
+  },
+  "homepage": "https://github.com/EliuX/tripolite#readme"
+}
