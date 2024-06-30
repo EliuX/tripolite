@@ -2,9 +2,12 @@
   "name": "@tripolite/api",
   "version": "0.0.1",
   "description": "Basic API for Tripolite",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "tsc && node dist/server",
+    "test": "echo \"Error: no test specified in the backend\""
   },
   "keywords": [
     "backend",

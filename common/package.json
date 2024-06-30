@@ -2,9 +2,8 @@
   "name": "@tripolite/common",
   "version": "0.0.1",
   "description": "Shared resources between the frontend and the backend application",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --project tsconfig.json"
   },
   "keywords": [
     "shared",
@@ -12,6 +11,9 @@
     "interfaces",
     "bridge"
   ],
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  },
   "author": "EliuX",
   "license": "ISC"
 }

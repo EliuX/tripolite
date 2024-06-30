@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prestart": "npm run build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo \"Error: no test specified in the frontend\""
   },
   "dependencies": {
     "@tripolite/common": "file:../../common/src",

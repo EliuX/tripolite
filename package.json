@@ -4,7 +4,9 @@
   "description": "Truxweb Coding Test project that intends to demo my full stack skills around typescript",
   "main": " ",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:frontend": "npm start --prefix=frontend/website",
+    "start:backend": "npm start --prefix=backend/api",
+    "test": "npm test --prefix=backend/api && npm test --prefix=frontend/website"
   },
   "repository": {
     "type": "git",
