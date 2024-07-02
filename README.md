@@ -13,11 +13,13 @@ Be sure to have installed in your system:
 
 
 ## Structure
-The following folder structure was conceived for making this project easier to manage and scalable if necessary.
+The following folder structure was conceived for making this project easier to manage and scalable if necessary. Each of
+these projects has its own documentation for more details.
 
-- [/Frontend/website](/frontend/website/README.md): NextJS project which is the only frontend project available.
-- [/Backend/api](/backend/api/README.md): NodeJS project which is the only backend project available.
+- [/Frontend/website](/frontend/website/README.md):  The only frontend project available.
+- [/Backend/api](/backend/api/README.md): The only backend project available.
+- [/Common](/common/README.md): The project with the contracts between the frontend and the backend.
 
 
 # Disclaimer
-tripolite.com is a non claimed domain at the moment of the creation of this project.
+The domain tripolite.com has not be claimed at the moment of the creation of this project.

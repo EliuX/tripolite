@@ -26,9 +26,13 @@ These are the steps to make the API available
   ```shell
     npm run migrate:up
   ```
+- Start the application
+   ```shell
+    npm start
+  ``` 
   
 ## Well known issues
 
-- It is unknown the reasons why for migrations the extension of the imported entities (.js) are requested to be included
-at the end during the importing process.
+- It is unknown the reasons why the extension of the imported entities are requested to be included
+  at the end during the importing process and only .js was allowed.
 

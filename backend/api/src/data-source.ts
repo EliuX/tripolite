@@ -1,4 +1,4 @@
-import {DataSource} from "typeorm"
+import {DataSource} from "typeorm";
 import {MongoConnectionOptions} from "typeorm/driver/mongodb/MongoConnectionOptions";
 
 export const AppDataSource = new DataSource({

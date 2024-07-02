@@ -1,7 +1,6 @@
-import "reflect-metadata";
 import express, { Express, Request, Response } from "express";
-import TravelRoute from "@tripolite/common/model/travel-route";
-import {AppDataSource} from "./data-source";
+import {AppDataSource} from "./data-source.js";
+import TravelRouteEntity from "./entity/travel-route.entity.js";
 
 AppDataSource
     .initialize()
@@ -15,17 +14,9 @@ AppDataSource
 const app: Express = express();
 const port = 3000;
 
-app.get("/travel-routes/example", (req: Request, res: Response) => {
-    const example = {
-        originCity: "New York",
-        destinationCity: "Los Angeles",
-        transportation: "American Airlines",
-        type: "Plane",
-        price: 500,
-        schedule: "MTWTFSS"
-    } as TravelRoute;
-
-    res.send(example);
+app.get("/travel-routes", async (req: Request, res: Response) => {
+    const allTravelRoutes = await TravelRouteEntity.find();
+    res.send(allTravelRoutes);
 });
 
 app.listen(port, () => {
