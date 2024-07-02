@@ -1,13 +1,14 @@
+import "reflect-metadata";
 import express, { Express, Request, Response } from "express";
 import TravelRoute from "@tripolite/common/model/travel-route";
-import appDataSource from "./data-source";
+import {AppDataSource} from "./data-source";
 
-appDataSource
+AppDataSource
     .initialize()
     .then(() => {
         console.log("MongoDB data source initialized!")
     })
-    .catch((err) => {
+    .catch((err: unknown) => {
         console.error("Error during the initialization of the MongoDB data source:", err)
     })
 

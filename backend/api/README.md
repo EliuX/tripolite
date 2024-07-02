@@ -7,7 +7,7 @@ API in the backend of the Tripolite project
 In addition to the common [resources of Tripolite](../../common/README.md), this project includes:
 
 - Express
-- Mikro-ORM + Migrations
+- TypeORM + Migrations
 - MongoDB
 
 
@@ -22,8 +22,13 @@ These are the steps to make the API available
   ```shell
     npx mikro-orm database:create 
   ```
-  Check with `npx mikro-orm-esm debug` that everything is Ok.
-- Seed the database:
+- Run the migrations the database:
   ```shell
-    npm run seed
+    npm run migrate:up
   ```
+  
+## Well known issues
+
+- It is unknown the reasons why for migrations the extension of the imported entities (.js) are requested to be included
+at the end during the importing process.
+

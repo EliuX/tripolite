@@ -3,7 +3,7 @@ import {BaseEntity as MongoBaseEntity, Column, ObjectId, ObjectIdColumn, Primary
 
 export abstract class BaseEntity extends MongoBaseEntity {
 
-    @PrimaryGeneratedColumn()
+    @ObjectIdColumn()
     _id!: ObjectId;
 
     @Column({insert: true})

@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "rootDirs": [
       "./src"
     ],
-    "module": "NodeNext",
-    "target": "ESNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "Node",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "outDir": "./dist",
-    "declaration": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
