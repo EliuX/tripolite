@@ -2,7 +2,7 @@ import TravelRoute from "@tripolite/common/model/travel-route";
 import {Column, Entity} from "typeorm"
 import fs from "fs";
 import csvParser from "csv-parser";
-import {BaseEntity} from "./base.entity.js";
+import {BaseEntity} from "./base.entity";
 
 @Entity({name: 'travel-routes'})
 export default class TravelRouteEntity extends BaseEntity implements TravelRoute {

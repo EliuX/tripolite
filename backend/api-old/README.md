@@ -12,7 +12,7 @@ In addition to the common [resources of Tripolite](../../common/README.md), this
 
 
 ## How to start
-These are the steps to make the API available
+These are the steps to make the API available:
 - Firstly, install the dependencies with `npm install`. This will also build the `common` module.
 - Start the mongodb server:
     ```shell
@@ -29,7 +29,7 @@ These are the steps to make the API available
 - Start the application
    ```shell
     npm start
-  ``` 
+  ```
   
 ## Well known issues
 

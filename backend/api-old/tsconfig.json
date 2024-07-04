@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "lib": ["ES6", "ESNext"],
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@/*": ["*"],
+      "@tripolite/common/*": ["../../common/*"],
+    }
+  },
+  "references": [
+    {
+      "path": "../../common"
+    }
+  ],
+  "include": [
+    "./src"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
