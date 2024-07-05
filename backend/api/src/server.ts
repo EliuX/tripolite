@@ -1,9 +1,10 @@
 import app from "./app";
 import {AppDataSource} from "./data-source";
+import * as process from "process";
 
-const port = 3000;
+const port= process.env.PORT || 3000;
 
-await AppDataSource
+AppDataSource
     .initialize()
     .then(() => {
         console.log("MongoDB data source initialized!");

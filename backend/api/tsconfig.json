@@ -3,8 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "lib": ["es5", "es6", "dom"],
-    "target": "es6",
+    "lib": ["es7", "ES2021", "ESNext"],
+    "target": "ESNext",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

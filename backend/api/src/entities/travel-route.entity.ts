@@ -1,8 +1,8 @@
 import TravelRoute from "@tripolite/common/model/travel-route";
 import {Column, Entity} from "typeorm"
 import {BaseEntity} from "./base.entity";
-const csvParser = require("csv-parser");
-const fs = require("fs");
+import csvParser = require("csv-parser");
+import fs = require("fs");
 
 @Entity({name: 'travel-routes'})
 export default class TravelRouteEntity extends BaseEntity implements TravelRoute {
@@ -39,7 +39,7 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
 
     public static async loadFromCSV(filePath: string) {
         return new Promise<void>(async (resolve, reject) => {
-            const travelRoutes: Array<TravelRouteEntity> = [];
+            const travelRoutes: TravelRouteEntity[] = [];
             fs.createReadStream(filePath)
                 .pipe(csvParser())
                 .on('data', (travelRouteRow: any) => {

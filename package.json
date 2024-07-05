@@ -2,7 +2,7 @@
   "name": "tripolite",
   "version": "0.0.1",
   "description": "Truxweb Coding Test project that intends to demo my full stack skills around typescript",
-  "main": " ",
+  "homepage": "https://github.com/EliuX/tripolite#readme",
   "scripts": {
     "start:frontend": "npm start --prefix=frontend/website",
     "start:backend": "npm start --prefix=backend/api",
@@ -22,6 +22,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EliuX/tripolite/issues"
-  },
-  "homepage": "https://github.com/EliuX/tripolite#readme"
+  }
 }

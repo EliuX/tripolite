@@ -9,30 +9,34 @@ In addition to the common [resources of Tripolite](../../common/README.md), this
 - Express
 - TypeORM + Migrations
 - MongoDB
+- A Typescript linter
 
 
 ## How to start
 These are the steps to make the API available:
 - Firstly, install the dependencies with `npm install`. This will also build the `common` module.
+- Execute some basic unit tests:
+   ```shell
+    npm test
+  ```
+  
 - Start the mongodb server:
     ```shell
     docker-compose up --build
     ```
-- If you have not created the database yet, you can:
-  ```shell
-    npx mikro-orm database:create 
-  ```
-- Run the migrations the database:
+  
+- Run the database migrations, which will seed the initial Travel Agency Data:
   ```shell
     npm run migrate:up
   ```
-- Start the application
+
+- Start the application, for development:
+   ```shell
+    npm run dev
+  ```
+  or for production
    ```shell
     npm start
   ```
-  
-## Well known issues
 
-- It is unknown the reasons why the extension of the imported entities are requested to be included
-  at the end during the importing process and only .js was allowed.
 

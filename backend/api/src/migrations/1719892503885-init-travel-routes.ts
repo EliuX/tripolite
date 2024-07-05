@@ -10,9 +10,7 @@ export class InitTravelRoutes1719892503885 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         const travelRoutes = await TravelRouteEntity.find();
 
-        for (let i = 0; i < travelRoutes.length; i++) {
-            await travelRoutes[i].remove();
-        }
+        await TravelRouteEntity.remove(travelRoutes);
 
         console.log(`Removed ${travelRoutes.length} travel routes`);
     }
