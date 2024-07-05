@@ -9,7 +9,7 @@ In addition to the common [resources of Tripolite](../../common/README.md), this
 - Express
 - TypeORM + Migrations
 - MongoDB
-- A Typescript linter
+- ESLint (Typescript linter)
 
 
 ## How to start
