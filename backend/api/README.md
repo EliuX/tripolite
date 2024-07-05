@@ -39,4 +39,3 @@ These are the steps to make the API available:
     npm start
   ```
 
-

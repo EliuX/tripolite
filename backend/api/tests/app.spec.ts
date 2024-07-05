@@ -1,8 +1,7 @@
 import TravelRouteEntity from "../src/entities/travel-route.entity";
 import {describe, it} from "@jest/globals";
 import app from "../src/app";
-
-const request = require("supertest");
+import * as request from "supertest";
 
 describe("Travel Routes API", () => {
     describe("GET /travel-routes", () => {
