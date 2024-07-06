@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import TravelRoute from "@tripolite/common/model/travel-route";
+import TravelRoute from "@tripolite/common/models/travel-route";
 
 export default function Home() {
   const example = {

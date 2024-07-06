@@ -5,8 +5,10 @@ export default abstract class TravelChoice {
     }
 
     get price() : number | undefined {
-        return this.routes
-            .map(p => p ?? p > 0 ? p : undefined)
-            .reduce((t, p) => t + p, 0);
+        if(this.routes.some(r => !(r.price > 0))) {
+            return undefined;
+        }
+
+        return this.routes.reduce((t, r) => t + r.price, 0);
     }
 }

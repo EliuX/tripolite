@@ -1,4 +1,4 @@
-import TravelRoute from "@tripolite/common/model/travel-route";
+import TravelRoute from "@tripolite/common/models/travel-route";
 import {Column, Entity} from "typeorm"
 import {BaseEntity} from "./base.entity";
 import * as csvParser from "csv-parser";
