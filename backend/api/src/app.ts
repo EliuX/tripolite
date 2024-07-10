@@ -5,8 +5,6 @@ import TravelRouteEntity from "./entities/travel-route.entity";
 
 const app: Express = express();
 app.use(express.json());
-app.use(cors({ origin: ["http://localhost:3000"] }));
-
 
 app.get("/", async (req: Request, res: Response) => {
     res.send("Welcome to the Tripolite API!!");
