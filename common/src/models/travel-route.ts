@@ -1,4 +1,5 @@
 export default interface TravelRoute {
+    uid: string;
     originCity: string;
     destinationCity: string;   // The city where the travel ends
     transportation: string;    // The name of the transportation service
