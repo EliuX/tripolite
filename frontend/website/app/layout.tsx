@@ -1,40 +1,59 @@
+import "@/styles/globals.css";
+import {Metadata, Viewport} from "next";
+import clsx from "clsx";
 
-import type {Metadata} from "next";
-import Link from 'next/link';
-import "./globals.css";
+import {Providers} from "./providers";
+
+import {siteConfig} from "@/config/site";
+import {fontSans} from "@/config/fonts";
+import {Navbar} from "@/components/navbar";
+import {Link} from "@nextui-org/link";
 
 export const metadata: Metadata = {
-    title: "TripOlite",
-    description: "Travel Agency as interview code",
+    title: {
+        default: siteConfig.name,
+        template: `%s - ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
+    icons: {
+        icon: "/favicon.ico",
+    },
+};
+
+export const viewport: Viewport = {
+    themeColor: [
+        {media: "(prefers-color-scheme: light)", color: "white"},
+        {media: "(prefers-color-scheme: dark)", color: "black"},
+    ],
 };
 
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
+                                   }: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
-        <html>
-        <meta charSet="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>TripOlite - Travel Agency</title>
-        <body>
-        <h1>TripOlite - Travel Agency </h1>
-        <nav>
-            <ul>
-                <li><Link href="/travel-routes">
-                    View Routes
-                </Link></li>
-                <li><Link href="/travel-routes/search">
-                    Search Routes
-                </Link></li>
-                <li><Link href="/bookings">
-                    Your Bookings
-                </Link></li>
-            </ul>
-        </nav>
-        <main>{children}</main>
-        <footer>© 2024 TripOlite</footer>
+        <html suppressHydrationWarning lang="en">
+        <head/>
+        <body
+            className={clsx(
+                "min-h-screen bg-background font-sans antialiased",
+                fontSans.variable,
+            )}
+        >
+        <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
+            <div className="relative flex flex-col h-screen">
+                <Navbar/>
+                <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+                    {children}
+                </main>
+                <footer className="w-full flex items-center justify-center py-3">
+                    <span className="text-default-600">Made by&nbsp;
+                        <Link href={siteConfig.links.github} className="text-primary">EliuX</Link>
+                    </span>
+                </footer>
+            </div>
+        </Providers>
         </body>
         </html>
     );
