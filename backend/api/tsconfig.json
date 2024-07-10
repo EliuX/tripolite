@@ -20,7 +20,6 @@
     }
   ],
   "exclude": [
-    "tests/**/*.ts",
     "node_modules",
     "dist"
   ]

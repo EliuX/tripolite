@@ -4,6 +4,16 @@ import app from "../src/app";
 import * as request from "supertest";
 
 describe("Travel Routes API", () => {
+    // beforeAll(async () => {
+    //     if(!AppDataSource.isInitialized) {
+    //         await AppDataSource.initialize();
+    //     }
+    // });
+    //
+    // afterAll(async () => {
+    //     await AppDataSource.destroy();
+    // });
+
     describe("GET /travel-routes", () => {
         it("should return all travel routes", (done) => {
             //Given
@@ -35,7 +45,7 @@ describe("Travel Routes API", () => {
             ];
 
 
-            jest.spyOn(TravelRouteEntity, "find").mockResolvedValue(sampleTravelRoutes as TravelRouteEntity[]);
+            jest.spyOn(TravelRouteEntity, "find").mockResolvedValue(sampleTravelRoutes);
 
             request(app)
                 .get('/travel-routes')
@@ -54,7 +64,7 @@ describe("Travel Routes API", () => {
                     expect(res.body[0].transportation).toBe(sampleTravelRoutes[0].transportation);
                     expect(res.body[0].type).toBe(sampleTravelRoutes[0].type);
 
-                    return done();
+                    done();
                 });
         });
     });

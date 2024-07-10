@@ -58,7 +58,7 @@
       "^.+\\.(ts|js)?$": "ts-jest"
     },
     "testMatch": [
-      "**/tests/**/*.spec.(ts|js)"
+      "**/tests/**/*.(spec|test).ts"
     ],
     "testEnvironment": "node",
     "preset": "ts-jest"

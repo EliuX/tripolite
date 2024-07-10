@@ -1,5 +1,6 @@
 import TravelRoute from "@tripolite/common/models/travel-route";
-import {Column, Entity, ObjectId} from "typeorm"
+import {Column, Entity} from "typeorm"
+import { ObjectId } from 'mongodb';
 import {BaseEntity} from "./base.entity";
 import * as csvParser from "csv-parser";
 import * as fs from "fs";
@@ -24,11 +25,13 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
     @Column()
     schedule!: string;
 
-    constructor(data?: Partial<TravelRoute>) {
+    constructor(data?: Partial<TravelRoute | TravelRouteEntity>) {
         super();
 
         if (data) {
-            if(data.uid) {
+            if(data["_id"]) {
+                this._id = data["_id"];
+            } else if(data.uid) {
                 this._id = ObjectId.createFromHexString(data.uid);
             }
 
@@ -70,9 +73,20 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
                 .on('error', reject);
         });
     }
+    public toTravelRoute(): TravelRoute {
+        return {
+            uid: this.uid,
+            originCity: this.originCity,
+            destinationCity: this.destinationCity,
+            transportation: this.transportation,
+            type: this.type,
+            price: this.price,
+            schedule: this.schedule,
+        } as TravelRoute;
+    }
 
     get uid(): string {
-        return this._id.toHexString();
+        return this._id?.toHexString();
     }
 }
 
