@@ -1,5 +1,4 @@
 import * as express from "express";
-import * as cors from "cors";
 import {Express, Request, Response} from "express";
 import TravelRouteEntity from "./entities/travel-route.entity";
 

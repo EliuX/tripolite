@@ -18,8 +18,8 @@ AppDataSource
         console.error("Error during the initialization of the MongoDB data source:", err);
     });
 
-
 app.use(cors({ origin: frontendOrigin }));
+app.options('*', cors());
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
