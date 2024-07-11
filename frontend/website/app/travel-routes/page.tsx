@@ -6,18 +6,17 @@ import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectTravelRoutes} from "@/lib/selectors";
 import {setTravelRoutes} from "@/lib/store";
+import {loadTravelRoutes} from "@/lib/api";
 
 
 export default function TravelRoutesPage() {
-    const dispatch = useAppDispatch();
     const travelRoutes = useAppSelector(selectTravelRoutes);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        (async () => {
-            const result = await fetch(siteConfig.services.api.travelRoutes.path)
-                .then(response => response.json());
-            dispatch(setTravelRoutes(result));
-        })();
+        loadTravelRoutes().then(routes => {
+            dispatch(setTravelRoutes(routes));
+        });
     }, [dispatch]);
 
     return (

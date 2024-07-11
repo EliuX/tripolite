@@ -4,10 +4,10 @@ import {Divider} from "@nextui-org/divider";
 import {Select, SelectItem} from "@nextui-org/select";
 import {Button} from "@nextui-org/button";
 import clsx from "clsx";
-import {subtitle, title} from "@/components/primitives";
+import {subtitle} from "@/components/primitives";
 import {TRAVEL_METHODS} from "@tripolite/common/models/travel-method";
 
-export default function SearchBox({handleSearch}: SearchBoxProps) {
+export default function SearchBox({handleSearch, originCities, destinationCities}: SearchBoxProps) {
     const [origin, setOrigin] = useState('');
     const [destination, setDestination
     ] = useState('');
@@ -25,24 +25,26 @@ export default function SearchBox({handleSearch}: SearchBoxProps) {
                         label="Origin"
                         placeholder="Leaving from"
                     >
-                        <SelectItem key={1}>
-                            Havana
-                        </SelectItem>
-                        <SelectItem key={2}>
-                            Santiago
-                        </SelectItem>
+                        {originCities.map(city => {
+                            return (
+                                <SelectItem key={city}>
+                                    {city}
+                                </SelectItem>
+                            )
+                        })}
                     </Select>
                     <Select
                         className="flex-1 min-w-40"
                         label="Destination"
                         placeholder="Arriving to"
                     >
-                        <SelectItem key={1}>
-                            Havana
-                        </SelectItem>
-                        <SelectItem key={2}>
-                            Havana
-                        </SelectItem>
+                        {destinationCities.map(city => {
+                            return (
+                                <SelectItem key={city}>
+                                    {city}
+                                </SelectItem>
+                            )
+                        })}
                     </Select>
                     <Select className="flex-1 min-w-40"
                             label="Travel Method"
@@ -69,6 +71,8 @@ export default function SearchBox({handleSearch}: SearchBoxProps) {
 
 export interface SearchBoxProps {
     handleSearch: React.MouseEventHandler<HTMLButtonElement> | undefined;
+    originCities: string[],
+    destinationCities: string[],
 }
 
 
