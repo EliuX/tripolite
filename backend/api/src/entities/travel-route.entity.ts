@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 import {BaseEntity} from "./base.entity";
 import * as csvParser from "csv-parser";
 import * as fs from "fs";
+import {TravelMethod} from "@tripolite/common/src/models/travel-method";
 
 @Entity({name: 'travel-routes'})
 export default class TravelRouteEntity extends BaseEntity implements TravelRoute {
@@ -14,7 +15,7 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
     destinationCity!: string;
 
     @Column()
-    transportation!: string;
+    transportation!: TravelMethod;
 
     @Column()
     type!: string;
@@ -54,7 +55,7 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
                         originCity: travelRouteRow['Origin City'],
                         destinationCity: travelRouteRow['Destination City'],
                         transportation: travelRouteRow['Transportation'],
-                        type: travelRouteRow['Type'],
+                        type: travelRouteRow['Type'] as TravelMethod,
                         price: parseInt(travelRouteRow['Price']),
                         schedule: travelRouteRow['Schedule'],
                     });

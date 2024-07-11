@@ -5,14 +5,12 @@ import {Select, SelectItem} from "@nextui-org/select";
 import {Button} from "@nextui-org/button";
 import clsx from "clsx";
 import {subtitle, title} from "@/components/primitives";
-
-export interface SearchBoxProps {
-    handleSearch: React.MouseEventHandler<HTMLButtonElement> | undefined;
-}
+import {TRAVEL_METHODS} from "@tripolite/common/models/travel-method";
 
 export default function SearchBox({handleSearch}: SearchBoxProps) {
     const [origin, setOrigin] = useState('');
-    const [destination, setDestination] = useState('');
+    const [destination, setDestination
+    ] = useState('');
     const [method, setMethod] = useState('');
 
     return (
@@ -49,15 +47,13 @@ export default function SearchBox({handleSearch}: SearchBoxProps) {
                     <Select className="flex-1 min-w-40"
                             label="Travel Method"
                             placeholder="Travel in a">
-                        <SelectItem key={1}>
-                            Plane
-                        </SelectItem>
-                        <SelectItem key={2}>
-                            Train
-                        </SelectItem>
-                        <SelectItem key={3}>
-                            Car
-                        </SelectItem>
+                        {TRAVEL_METHODS.map(method => {
+                            return (
+                                <SelectItem key={method}>
+                                    {method}
+                                </SelectItem>
+                            )
+                        })}
                     </Select>
                 </div>
             </CardBody>
@@ -70,3 +66,9 @@ export default function SearchBox({handleSearch}: SearchBoxProps) {
         </Card>
     );
 }
+
+export interface SearchBoxProps {
+    handleSearch: React.MouseEventHandler<HTMLButtonElement> | undefined;
+}
+
+

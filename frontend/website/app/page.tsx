@@ -4,8 +4,8 @@ import {Link} from "@nextui-org/link";
 import {button as buttonStyles} from "@nextui-org/theme";
 import {subtitle, title} from "@/components/primitives";
 import {Suspense, useState} from "react";
-import SearchBox from "@/app/travel-routes/search/SearchBox";
 import {Spinner} from "@nextui-org/spinner";
+import SearchBox from "@/components/search-box";
 
 export default function Home() {
     const [isSearching, showSearchBox] = useState(false);
