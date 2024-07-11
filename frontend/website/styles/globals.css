@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --primary-color: #00FFFF;
+    --accent-color: #FFB457;
+}
 
 @keyframes fadeIn {
     from {

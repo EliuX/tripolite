@@ -1,8 +1,15 @@
+'use client';
+
 import {Link} from "@nextui-org/link";
 import {button as buttonStyles} from "@nextui-org/theme";
 import {subtitle, title} from "@/components/primitives";
+import {Suspense, useState} from "react";
+import SearchBox from "@/app/travel-routes/search/SearchBox";
+import {Spinner} from "@nextui-org/spinner";
 
 export default function Home() {
+    const [isSearching, showSearchBox] = useState(false);
+
     return (
         <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
             <div className="inline-block max-w-lg text-center justify-center">
@@ -12,17 +19,19 @@ export default function Home() {
                     Discover seamless travel routes, tailored just for you. Explore. Connect. Travel with ease.
                 </h2>
             </div>
-
-            <div className="flex gap-3">
-                <Link className={buttonStyles({
-                        color: "primary",
-                        radius: "full",
-                        variant: "shadow",
-                    })}
-                    href={"/travel-routes/search"}
+            <div className={'min-w-full max-w-[250px] flex content-center items-center justify-center '}>
+                {isSearching && <Suspense fallback={<Spinner>Loading...</Spinner>}>
+                    <SearchBox handleSearch={() => console.log("search!")}/>
+                </Suspense>}
+                {!isSearching && <Link className={buttonStyles({
+                    color: "primary",
+                    radius: "full",
+                    variant: "shadow",
+                })}
+                                       onPress={() => showSearchBox(true)}
                 >
                     Search for a flight
-                </Link>
+                </Link>}
             </div>
         </section>
     );
