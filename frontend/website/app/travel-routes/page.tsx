@@ -1,22 +1,24 @@
 'use client';
 import {siteConfig} from "@/config/site";
 import React, {useEffect, useState} from "react";
-import TravelRoute from "@tripolite/common/models/travel-route";
 import {Spinner} from "@nextui-org/spinner";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/table";
+import {useAppDispatch, useAppSelector} from "@/lib/hooks";
+import {selectTravelRoutes} from "@/lib/selectors";
+import {setTravelRoutes} from "@/lib/store";
 
 
 export default function TravelRoutesPage() {
-    const [travelRoutes, setTravelRoutes] = useState([] as TravelRoute[]);
+    const dispatch = useAppDispatch();
+    const travelRoutes = useAppSelector(selectTravelRoutes);
 
     useEffect(() => {
-        const getData = () => {
-            return fetch(siteConfig.services.api.travelRoutes.path)
+        (async () => {
+            const result = await fetch(siteConfig.services.api.travelRoutes.path)
                 .then(response => response.json());
-        };
-
-        getData().then(r => setTravelRoutes(r));
-    }, []);
+            dispatch(setTravelRoutes(result));
+        })();
+    }, [dispatch]);
 
     return (
         <>
