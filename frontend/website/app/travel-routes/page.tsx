@@ -1,5 +1,4 @@
 'use client';
-import {siteConfig} from "@/config/site";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "@nextui-org/spinner";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/table";
@@ -10,12 +9,15 @@ import {loadTravelRoutes} from "@/lib/api";
 
 
 export default function TravelRoutesPage() {
+    const [isLoadingTravelRoutes, setIsLoadingTravelRoutes] = useState(false);
     const travelRoutes = useAppSelector(selectTravelRoutes);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        setIsLoadingTravelRoutes(true);
         loadTravelRoutes().then(routes => {
             dispatch(setTravelRoutes(routes));
+            setIsLoadingTravelRoutes(false);
         });
     }, [dispatch]);
 
@@ -39,6 +41,7 @@ export default function TravelRoutesPage() {
                 </TableHeader>
                 <TableBody emptyContent={ <p>There is no travel routes available for the moment. Please try again later.</p> }
                            aria-label={"Travel routes data"}
+                           isLoading={isLoadingTravelRoutes}
                            loadingContent={<Spinner label="Loading..." />}>
                     {travelRoutes.map((row) =>
                         <TableRow key={row.uid}>
