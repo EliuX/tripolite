@@ -4,8 +4,8 @@ import {Spinner} from "@nextui-org/spinner";
 import {Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/table";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectTravelRoutes} from "@/lib/selectors";
-import {setTravelRoutes} from "@/lib/store";
 import {loadTravelRoutes} from "@/lib/api";
+import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
 
 
 export default function TravelRoutesPage() {

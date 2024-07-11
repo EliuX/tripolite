@@ -9,13 +9,17 @@ import SearchBox from "@/components/search-box";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectDestinationCities, selectOriginCities} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
-import {setTravelRoutes} from "@/lib/store";
+import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
+import {TravelRouteSearchCriteria} from "@tripolite/common/models/travel-route-search-criteria";
+import {setSearchCriteria} from "@/lib/features/travelRoutes/travelRoutesSearchSlice";
+import {useRouter} from "next/navigation";
 
 export default function Home() {
     const [isLoadingTravelRoutes, setIsLoadingTravelRoutes] = useState(false);
     const [isSearchBoxVisible, showSearchBox] = useState(false);
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         setIsLoadingTravelRoutes(true);
@@ -24,6 +28,11 @@ export default function Home() {
             setIsLoadingTravelRoutes(false);
         });
     }, [dispatch]);
+
+    const loadSearchPage = (searchCriteria: TravelRouteSearchCriteria) => {
+        dispatch(setSearchCriteria(searchCriteria));
+        router.push('travel-routes/search');
+    }
 
     const originCities = useAppSelector(selectOriginCities);
     const destinationCities = useAppSelector(selectDestinationCities);
@@ -42,7 +51,7 @@ export default function Home() {
                     <SearchBox originCities={originCities}
                                destinationCities={destinationCities}
                                isLoading={isLoadingTravelRoutes}
-                               handleSearch={() => console.log("search!")}/>
+                               handleSearch={loadSearchPage}/>
                 </Suspense>}
                 {!isSearchBoxVisible && <Link className={buttonStyles({
                     color: "primary",
