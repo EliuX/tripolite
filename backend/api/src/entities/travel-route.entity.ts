@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 import {BaseEntity} from "./base.entity";
 import * as csvParser from "csv-parser";
 import * as fs from "fs";
-import {TravelMethod} from "@tripolite/common/src/models/travel-method";
+import TravelMethod from "@tripolite/common/src/models/travel-method";
 
 @Entity({name: 'travel-routes'})
 export default class TravelRouteEntity extends BaseEntity implements TravelRoute {

@@ -1,4 +1,4 @@
-    import {TravelMethod} from "./travel-method";
+    import TravelMethod from "./travel-method";
 
     export default interface TravelRoute {
         uid: string;                    // The unique identifier of the travel route
