@@ -3,7 +3,7 @@
 import {Link} from "@nextui-org/link";
 import {button as buttonStyles} from "@nextui-org/theme";
 import {subtitle, title} from "@/components/primitives";
-import {Suspense, useEffect, useState} from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import {Spinner} from "@nextui-org/spinner";
 import SearchBox from "@/components/search-box";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
@@ -12,13 +12,16 @@ import {loadTravelRoutes} from "@/lib/api";
 import {setTravelRoutes} from "@/lib/store";
 
 export default function Home() {
-    const [isSearching, showSearchBox] = useState(false);
+    const [isLoadingTravelRoutes, setIsLoadingTravelRoutes] = useState(false);
+    const [isSearchBoxVisible, showSearchBox] = useState(false);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        setIsLoadingTravelRoutes(true);
         loadTravelRoutes().then(routes => {
             dispatch(setTravelRoutes(routes));
+            setIsLoadingTravelRoutes(false);
         });
     }, [dispatch]);
 
@@ -35,17 +38,18 @@ export default function Home() {
                 </h2>
             </div>
             <div className={'min-w-full max-w-[250px] flex content-center items-center justify-center '}>
-                {isSearching && <Suspense fallback={<Spinner>Loading...</Spinner>}>
+                {isSearchBoxVisible && <Suspense fallback={<Spinner label="Loading..."/>}>
                     <SearchBox originCities={originCities}
                                destinationCities={destinationCities}
-                               handleSearch={() => console.log("search!")} />
+                               isLoading={isLoadingTravelRoutes}
+                               handleSearch={() => console.log("search!")}/>
                 </Suspense>}
-                {!isSearching && <Link className={buttonStyles({
+                {!isSearchBoxVisible && <Link className={buttonStyles({
                     color: "primary",
                     radius: "full",
                     variant: "shadow",
                 })}
-                                       onPress={() => showSearchBox(true)}
+                                              onPress={() => showSearchBox(true)}
                 >
                     Search for a flight
                 </Link>}

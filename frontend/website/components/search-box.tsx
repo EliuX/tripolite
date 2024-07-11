@@ -5,13 +5,13 @@ import {Select, SelectItem} from "@nextui-org/select";
 import {Button} from "@nextui-org/button";
 import clsx from "clsx";
 import {subtitle} from "@/components/primitives";
-import {TRAVEL_METHODS} from "@tripolite/common/models/travel-method";
+import {TRAVEL_METHODS, TravelMethod} from "@tripolite/common/models/travel-method";
 
-export default function SearchBox({handleSearch, originCities, destinationCities}: SearchBoxProps) {
+export default function SearchBox({handleSearch, originCities, destinationCities, isLoading}: SearchBoxProps) {
     const [origin, setOrigin] = useState('');
     const [destination, setDestination
     ] = useState('');
-    const [method, setMethod] = useState('');
+    const [travelMethod, selectTravelMethod] = useState<TravelMethod | ''>('');
 
     return (
         <Card className="flex w-250 flex-col flex-wrap md:flex-nowrap gap-4">
@@ -21,6 +21,7 @@ export default function SearchBox({handleSearch, originCities, destinationCities
             <CardBody>
                 <div className="flex flex-row flex-wrap gap-4">
                     <Select
+                        isLoading={isLoading}
                         className="flex-1 min-w-40"
                         label="Origin"
                         placeholder="Leaving from"
@@ -34,6 +35,7 @@ export default function SearchBox({handleSearch, originCities, destinationCities
                         })}
                     </Select>
                     <Select
+                        isLoading={isLoading}
                         className="flex-1 min-w-40"
                         label="Destination"
                         placeholder="Arriving to"
@@ -73,6 +75,7 @@ export interface SearchBoxProps {
     handleSearch: React.MouseEventHandler<HTMLButtonElement> | undefined;
     originCities: string[],
     destinationCities: string[],
+    isLoading: boolean;
 }
 
 

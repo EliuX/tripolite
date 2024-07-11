@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState} from "react";
 import {Spinner} from "@nextui-org/spinner";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/table";
+import {Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/table";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectTravelRoutes} from "@/lib/selectors";
 import {setTravelRoutes} from "@/lib/store";
@@ -39,10 +39,11 @@ export default function TravelRoutesPage() {
                     <TableColumn>Price</TableColumn>
                     <TableColumn>Schedule</TableColumn>
                 </TableHeader>
-                <TableBody emptyContent={ <p>There is no travel routes available for the moment. Please try again later.</p> }
-                           aria-label={"Travel routes data"}
-                           isLoading={isLoadingTravelRoutes}
-                           loadingContent={<Spinner label="Loading..." />}>
+                <TableBody
+                    emptyContent={<p>There is no travel routes available for the moment. Please try again later.</p>}
+                    aria-label={"Travel routes data"}
+                    isLoading={isLoadingTravelRoutes && !travelRoutes?.length}
+                    loadingContent={<Spinner label="Loading..."/>}>
                     {travelRoutes.map((row) =>
                         <TableRow key={row.uid}>
                             <TableCell>{row.originCity}</TableCell>
