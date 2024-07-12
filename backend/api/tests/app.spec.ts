@@ -4,16 +4,6 @@ import app from "../src/app";
 import * as request from "supertest";
 
 describe("Travel Routes API", () => {
-    // beforeAll(async () => {
-    //     if(!AppDataSource.isInitialized) {
-    //         await AppDataSource.initialize();
-    //     }
-    // });
-    //
-    // afterAll(async () => {
-    //     await AppDataSource.destroy();
-    // });
-
     describe("GET /travel-routes", () => {
         it("should return all travel routes", (done) => {
             //Given
@@ -52,8 +42,8 @@ describe("Travel Routes API", () => {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
-                .end(function(err, res) {
-                    if (err) throw err;
+                .end(function (err, res) {
+                    if (err) done(err);
 
                     expect(res.body).toBeInstanceOf(Array);
                     expect(res.body).toHaveLength(sampleTravelRoutes.length);
@@ -66,6 +56,14 @@ describe("Travel Routes API", () => {
 
                     done();
                 });
+        });
+    });
+
+    describe("Badly formed path", () => {
+        it("should return a 404 with no content for /noexistingpath", () => {
+            request(app)
+                .get('/noexistingpath')
+                .expect(404);
         });
     });
 });

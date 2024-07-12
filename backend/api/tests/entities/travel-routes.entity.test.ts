@@ -1,6 +1,5 @@
 import TravelRouteEntity from "../../src/entities/travel-route.entity";
-import {ObjectId} from "typeorm";
-import TravelRoute from "@tripolite/common/src/models/travel-route";
+import TravelRoute from "@tripolite/common/models/travel-route";
 
 
 describe('TravelRouteEntity', () => {
