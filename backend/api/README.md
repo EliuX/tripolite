@@ -15,7 +15,7 @@ In addition to the common [resources of Tripolite](../../common/README.md), this
 ## How to start
 These are the steps to make the API available:
 - Firstly, install the dependencies with `npm install`. This will also build the `common` module.
-- Execute some basic unit tests:
+- Execute some basic tests:
    ```shell
     npm test
   ```

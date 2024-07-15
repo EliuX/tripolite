@@ -20,6 +20,13 @@ these projects has its own documentation for more details.
 - [/Backend/api](/backend/api/README.md): The only backend project available.
 - [/Common](/common/README.md): The project with the contracts between the frontend and the backend.
 
+## How to demo
+This is how you should try the application:
+
+- We must get ready the backend. Follow [these instructions](./backend/api/README.md).
+- Next, we must get ready the frontend. Follow [these instructions](./frontend/website/README.md).
+- Open the web application in your browser and start using it: http://localhost:3000/
+
 
 ## Considerations
 In order to solve the [excercise instruction](instructions.md) certain considerations had to be made:
@@ -31,8 +38,6 @@ installation process.
   * The MongoDB queries for the search should use a filter criteria whether possible.
 - Every npm script run in the root folder is meant to spread it to all active projects, e.g. `npm test` will execute
   the tests in all projects.
-
-
 
 # Disclaimer
 The domain tripolite.com has not be claimed at the moment of the creation of this project.
