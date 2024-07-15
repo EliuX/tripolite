@@ -27,9 +27,9 @@ app.get("/travel-routes/search", async (req, res: Response) => {
 });
 
 const createQueryFromSearchCriteria = (searchCriteria: TravelRouteSearchCriteria): FindOptionsWhere<TravelRouteEntity> | undefined => {
-    if (searchCriteria.transportation) {
+    if (searchCriteria.type) {
         return {
-            transportation: searchCriteria.transportation
+            transportation: searchCriteria.type
         };
     } else {
         return {};

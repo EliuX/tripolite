@@ -15,10 +15,10 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
     destinationCity!: string;
 
     @Column()
-    transportation!: TravelMethod;
+    transportation!: string;
 
     @Column()
-    type!: string;
+    type!: TravelMethod;
 
     @Column()
     price!: number;

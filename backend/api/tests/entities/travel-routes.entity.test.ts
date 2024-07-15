@@ -10,8 +10,8 @@ describe('TravelRouteEntity', () => {
             uid,
             originCity: "CityA",
             destinationCity: "CityB",
-            transportation: "Plane",
-            type: "Economy",
+            transportation: "Economic Plane Company",
+            type: "Plane",
             price: 100,
             schedule: "MTWTFSS",
         } as TravelRoute;
