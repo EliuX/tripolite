@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "lib": ["es7", "ES2021", "ESNext"],
-    "target": "ESNext",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["ES6", "ES2021", "ESNext"],
+    "target": "ES2021",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
@@ -20,6 +20,7 @@
     }
   ],
   "exclude": [
+    "tests/**/*.ts",
     "node_modules",
     "dist"
   ]

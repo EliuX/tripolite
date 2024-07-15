@@ -3,8 +3,6 @@ import {Express, Response} from "express";
 import TravelRouteEntity from "./entities/travel-route.entity";
 import {TravelRouteSearchCriteria} from "@tripolite/common/models/travel-route-search-criteria";
 import {FindOptionsWhere} from "typeorm/find-options/FindOptionsWhere";
-import TravelRoute from "@tripolite/common/models/travel-route";
-import {getMongoRepository} from "typeorm";
 
 const app: Express = express();
 app.use(express.json());
