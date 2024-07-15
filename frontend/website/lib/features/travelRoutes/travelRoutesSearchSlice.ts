@@ -1,10 +1,10 @@
 import TravelRoute from "@tripolite/common/models/travel-route";
-import {TravelRouteSearchCriteria} from "@tripolite/common/models/travel-route-search-criteria";
+import {TravelChoiceSearchCriteria} from "@tripolite/common/models/travel-choice-search-criteria";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 interface TravelRoutesSearchState {
-    criteria: TravelRouteSearchCriteria;
+    criteria: TravelChoiceSearchCriteria;
     results: TravelRoute[];
 }
 
@@ -21,7 +21,7 @@ const travelRoutesSearchSlice = createSlice({
     name: 'travelRoutesSearch',
     initialState,
     reducers: {
-        setSearchCriteria(state, action: PayloadAction<TravelRouteSearchCriteria>) {
+        setSearchCriteria(state, action: PayloadAction<TravelChoiceSearchCriteria>) {
             state.criteria = action.payload;
         },
         setSearchResults(state, action: PayloadAction<any[]>) {

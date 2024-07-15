@@ -38,6 +38,9 @@ installation process.
   * The MongoDB queries for the search should use a filter criteria whether possible.
 - Every npm script run in the root folder is meant to spread it to all active projects, e.g. `npm test` will execute
   the tests in all projects.
+- It will use a graph traversal algorithm called [Depth-First Search (DFS)](https://www.youtube.com/watch?v=x6iO0ZH9h7Q) 
+  to find all paths from the origin city to the destination city. Instead of implementing this algorithm or adding an 
+  external library, its code was generated using ChatGPT 4 and tested to verifying it was well functioning. 
 
 # Disclaimer
 The domain tripolite.com has not be claimed at the moment of the creation of this project.

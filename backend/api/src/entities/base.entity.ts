@@ -1,10 +1,6 @@
 import {ObjectId} from "mongodb";
 import {BaseEntity as TypeOrmBaseEntity, Column, ObjectIdColumn} from "typeorm";
 
-
-
-
-
 export abstract class BaseEntity extends TypeOrmBaseEntity {
 
     @ObjectIdColumn()

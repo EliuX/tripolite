@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectDestinationCities, selectOriginCities} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
-import {TravelRouteSearchCriteria} from "@tripolite/common/models/travel-route-search-criteria";
+import {TravelChoiceSearchCriteria} from "@tripolite/common/models/travel-choice-search-criteria";
 import {setSearchCriteria} from "@/lib/features/travelRoutes/travelRoutesSearchSlice";
 import {useRouter} from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function Home() {
         });
     }, [dispatch]);
 
-    const loadSearchPage = (searchCriteria: TravelRouteSearchCriteria) => {
+    const loadSearchPage = (searchCriteria: TravelChoiceSearchCriteria) => {
         dispatch(setSearchCriteria(searchCriteria));
         router.push('travel-routes/search');
     }
