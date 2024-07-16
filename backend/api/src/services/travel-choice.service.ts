@@ -1,7 +1,7 @@
 import TravelRouteEntity from "../entities/travel-route.entity";
-import TravelChoice from "@tripolite/common/models/travel-choice";
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
+import TravelChoice from "@tripolite/common/models/travel-choice";
 
 class TravelChoiceService {
     public async search(criteria: TravelChoiceSearchCriteria): Promise<TravelChoice[]> {

@@ -5,7 +5,7 @@ export const AppDataSource = new DataSource({
     type: 'mongodb',
     url: "mongodb://localhost:27017/tripolite",
     entities: ["./entities/*.js", "src/entities/*.ts"],
-    migrations: ["dist/migrations/*.js"],
+    migrations: ["src/migrations/*.ts"],
     synchronize: false,
     logging: true,
 } as MongoConnectionOptions);

@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDirs": [
-      "./src"
-    ],
+    "rootDir": "./src",
     "composite": true,
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "target": "ES2021",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,

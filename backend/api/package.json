@@ -21,7 +21,7 @@
   "author": "EliuX",
   "license": "ISC",
   "dependencies": {
-    "@tripolite/common": "file:../../common/src",
+    "@tripolite/common": "file:../../common/dist",
     "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
     "express": "^4.19.2",

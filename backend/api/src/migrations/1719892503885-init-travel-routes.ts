@@ -1,10 +1,11 @@
 import {MigrationInterface} from "typeorm";
 import TravelRouteEntity from "../entities/travel-route.entity";
+import dataImporterService from "../services/data-importer-service";
 
 export class InitTravelRoutes1719892503885 implements MigrationInterface {
 
     public async up(): Promise<void> {
-        return TravelRouteEntity.loadFromCSV('data/TravelAgencyData.csv');
+        return dataImporterService.loadTravelRoutes('data/TravelAgencyData.csv');
     }
 
     public async down(): Promise<void> {

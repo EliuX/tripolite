@@ -6,11 +6,7 @@ export enum TravelBookingStatus {
     Confirmed = 1,
 }
 
-export default abstract class TravelBooking extends TravelChoice {
-
-    constructor(routes: TravelRoute[]) {
-        super(routes);
-    }
+export default class TravelBooking extends TravelChoice {
 
     get status(): TravelBookingStatus {
         return this.price ? TravelBookingStatus.Confirmed : TravelBookingStatus.Pending;
