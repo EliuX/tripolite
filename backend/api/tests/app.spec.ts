@@ -2,6 +2,7 @@ import TravelRouteEntity from "../src/entities/travel-route.entity";
 import {describe, it} from "@jest/globals";
 import app from "../src/app";
 import * as request from "supertest";
+import TravelChoiceService from "../src/services/travel-choice.service";
 
 describe("Travel Routes API", () => {
     describe("GET /travel-routes", () => {
@@ -37,6 +38,7 @@ describe("Travel Routes API", () => {
 
             jest.spyOn(TravelRouteEntity, "find").mockResolvedValue(sampleTravelRoutes);
 
+            // When + then
             request(app)
                 .get('/travel-routes')
                 .set('Accept', 'application/json')
@@ -53,6 +55,35 @@ describe("Travel Routes API", () => {
                     expect(res.body[0].schedule).toBe(sampleTravelRoutes[0].schedule);
                     expect(res.body[0].transportation).toBe(sampleTravelRoutes[0].transportation);
                     expect(res.body[0].type).toBe(sampleTravelRoutes[0].type);
+
+                    done();
+                });
+        });
+    });
+
+    describe("GET /travel-choices/search", () => {
+        it('should search for travel choices with the given criteria', (done) => {
+            // Given
+            const searchSpy = jest.spyOn(TravelChoiceService, "search").mockResolvedValue([]);
+
+            // When + then
+            request(app)
+                .get("/travel-choices/search")
+                .query({
+                    originCity: "CityA",
+                    destinationCity: "CityB",
+                    type: "Plane"
+                })
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) done(err);
+
+                    expect(searchSpy).toHaveBeenNthCalledWith(1, {
+                        originCity: "CityA",
+                        destinationCity: "CityB",
+                        type: "Plane"
+                    });
 
                     done();
                 });

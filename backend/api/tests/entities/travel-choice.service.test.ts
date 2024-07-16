@@ -59,12 +59,12 @@ describe('TravelChoiceService', () => {
             // Then
             expect(results).toHaveLength(2);
 
-            expect(results[0].paths).toHaveLength(2); // A -> B -> C by train
-            expect(results[0].paths[0]).toBe(basicMockRoutes[0]);
-            expect(results[0].paths[1]).toBe(basicMockRoutes[1]);
+            expect(results[0].paths).toHaveLength(1); // A -> C by plane
+            expect(results[0].paths[0]).toBe(basicMockRoutes[2]);
 
-            expect(results[1].paths).toHaveLength(1); // A -> C by plane
-            expect(results[1].paths[0]).toBe(basicMockRoutes[2]);
+            expect(results[1].paths).toHaveLength(2); // A -> B -> C by train
+            expect(results[1].paths[0]).toBe(basicMockRoutes[0]);
+            expect(results[1].paths[1]).toBe(basicMockRoutes[1]);
         });
 
         it('should prioritize the preferred transportation type and the shortest path', async () => {

@@ -17,9 +17,11 @@ app.get("/travel-routes", async (_, res: Response) => {
 });
 
 app.get("/travel-choices/search", async (req, res: Response) => {
-    const searchCriteria = req.body as TravelChoiceSearchCriteria;
+    const searchCriteria = req.query as TravelChoiceSearchCriteria;
 
-    return await TravelChoiceService.search(searchCriteria);
+    const result = await TravelChoiceService.search(searchCriteria);
+
+    res.send(result);
 });
 
 app.use((req, res) => {
