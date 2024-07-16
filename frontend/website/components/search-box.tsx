@@ -54,7 +54,7 @@ export default function SearchBox({handleSearch, originCities, destinationCities
                                 className="flex-1 min-w-40"
                                 label="Travel Method"
                                 placeholder="Travel by"
-                                {...register('transportation')}
+                                {...register('type')}
                         >
                             {TRAVEL_METHODS.map(method => {
                                 return (

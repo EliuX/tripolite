@@ -2,6 +2,7 @@ import {describe, it} from "@jest/globals";
 import app from "../../src/app";
 import * as request from "supertest";
 import TravelChoiceService from "../../src/services/travel-choice.service";
+import {apiRoutes} from "../../src/routes";
 
 describe("Travel Choices API", () => {
     describe("GET /search", () => {
@@ -11,7 +12,7 @@ describe("Travel Choices API", () => {
 
             // When + then
             request(app)
-                .get("/travel-choices/search")
+                .get(apiRoutes.travelChoices.search)
                 .query({
                     originCity: "CityA",
                     destinationCity: "CityB",

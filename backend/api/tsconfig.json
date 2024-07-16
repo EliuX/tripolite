@@ -10,6 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
+      "@/*": ["./*"],
       "@tripolite/common/*": ["../../common/src/*"],
     },
     "outDir": "./dist"

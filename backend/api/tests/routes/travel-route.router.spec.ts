@@ -2,10 +2,9 @@ import TravelRouteEntity from "../../src/entities/travel-route.entity";
 import {describe, it} from "@jest/globals";
 import app from "../../src/app";
 import * as request from "supertest";
+import {apiRoutes} from "../../src/routes";
 
 describe("Travel Routes API", () => {
-    const baseUrl = "/travel-routes";
-
     describe("GET /", () => {
         it("should return all travel routes", (done) => {
             //Given
@@ -40,7 +39,7 @@ describe("Travel Routes API", () => {
 
             // When + then
             request(app)
-                .get(baseUrl)
+                .get(apiRoutes.travelRoutes.baseUrl)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)

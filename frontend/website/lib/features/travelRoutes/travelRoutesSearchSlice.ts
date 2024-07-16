@@ -12,7 +12,7 @@ const initialState: TravelRoutesSearchState = {
     criteria: {
         originCity: '',
         destinationCity: '',
-        transportation: undefined,
+        type: undefined,
     },
     results: [],
 };

@@ -1,4 +1,8 @@
+import ApiRoutes from "@tripolite/common/routes";
+
 export type SiteConfig = typeof siteConfig;
+
+export const apiRoutes = new ApiRoutes("/api");
 
 export const siteConfig = {
     name: "TripOlite",
@@ -17,14 +21,4 @@ export const siteConfig = {
         github: "https://github.com/EliuX",
         sourceCodeProject: "https://github.com/EliuX/tripolite",
     },
-    services: {
-        api: {
-            travelRoutes: {
-                path: "/api/travel-routes",
-                search: {
-                    path: "/api/travel-routes/search"
-                }
-            }
-        }
-    }
 };

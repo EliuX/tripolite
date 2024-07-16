@@ -1,16 +1,17 @@
 import {Response, Router} from "express";
 import travelChoiceRouter from "./travel-choice.router";
 import travelRouteRouter from "./travel-route.router";
-import TravelRouteEntity from "../entities/travel-route.entity";
+import ApiRoutes from "@tripolite/common/routes";
 
 const router: Router = Router();
+export const apiRoutes = new ApiRoutes();
 
-router.get("/", async (_, res: Response) => {
+router.get(apiRoutes.baseUrl, async (_, res: Response) => {
     res.send("Welcome to the Tripolite API");
 });
 
-router.use('/travel-routes', travelRouteRouter);
-router.use('/travel-choices', travelChoiceRouter);
+router.use(apiRoutes.travelRoutes.baseUrl, travelRouteRouter);
+router.use(apiRoutes.travelChoices.baseUrl, travelChoiceRouter);
 
 router.use((_, res) => {
     res.sendStatus(404);
