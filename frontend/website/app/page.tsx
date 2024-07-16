@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectDestinationCities, selectOriginCities} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
-import {TravelChoiceSearchCriteria} from "@tripolite/common/models/travel-choice-search-criteria";
+import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
 import {setSearchCriteria} from "@/lib/features/travelRoutes/travelRoutesSearchSlice";
 import {useRouter} from "next/navigation";
 

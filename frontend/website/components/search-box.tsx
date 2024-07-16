@@ -7,7 +7,7 @@ import {Button} from "@nextui-org/button";
 import clsx from "clsx";
 import {subtitle} from "@/components/primitives";
 import {TRAVEL_METHODS} from "@tripolite/common/models/travel-method";
-import {TravelChoiceSearchCriteria} from "@tripolite/common/models/travel-choice-search-criteria";
+import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
 
 export default function SearchBox({handleSearch, originCities, destinationCities, isLoading}: SearchBoxProps) {
     const {register, handleSubmit, formState: {isValid}} = useForm<TravelChoiceSearchCriteria>();

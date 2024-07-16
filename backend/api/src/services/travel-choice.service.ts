@@ -5,15 +5,7 @@ import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-s
 
 class TravelChoiceService {
     public async search(criteria: TravelChoiceSearchCriteria): Promise<TravelChoice[]> {
-        const {originCity, destinationCity, type} = criteria;
-
-        let query = TravelRouteEntity.createQueryBuilder("travelRoute");
-
-        if (type) {
-            query = query.andWhere("travelRoute.transportation = :transportation", {type});
-        }
-
-        const routes = await query.getMany();
+        const routes = await TravelRouteEntity.createQueryBuilder("travelRoute").getMany();
 
         return this.findAllPaths(routes, criteria);
     }
@@ -48,7 +40,7 @@ class TravelChoiceService {
         };
 
         dfs(criteria.originCity, []);
-        return this.convertToTravelChoices(paths, criteria);
+        return this.rankPaths(paths, criteria);
     }
 
     private buildGraph(routes: TravelRoute[]): Map<string, TravelRoute[]> {
@@ -65,8 +57,22 @@ class TravelChoiceService {
         return graph;
     }
 
+    private rankPaths(paths: TravelRoute[][], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
+        const travelChoices = this.convertToTravelChoices(paths, criteria);
+
+        travelChoices.sort((a, b) => {
+            if (b.satisfactionRatio !== a.satisfactionRatio) {
+                return b.satisfactionRatio - a.satisfactionRatio;
+            }
+
+            return a.paths.length - b.paths.length;
+        });
+
+        return travelChoices;
+    }
+
     private convertToTravelChoices(paths: TravelRoute[][], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
-        return paths.map(pathArray => new TravelChoice(criteria, pathArray));
+        return paths.map(pathArray => new TravelChoice(pathArray, criteria));
     }
 }
 

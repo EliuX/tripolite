@@ -1,5 +1,5 @@
 import TravelRoute from "@tripolite/common/models/travel-route";
-import {TravelChoiceSearchCriteria} from "@tripolite/common/models/travel-choice-search-criteria";
+import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 

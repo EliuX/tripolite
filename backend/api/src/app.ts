@@ -1,7 +1,7 @@
 import * as express from "express";
 import {Express, Response} from "express";
 import TravelRouteEntity from "./entities/travel-route.entity";
-import {TravelChoiceSearchCriteria} from "@tripolite/common/models/travel-choice-search-criteria";
+import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
 import TravelChoiceService from "./services/travel-choice.service";
 
 const app: Express = express();
