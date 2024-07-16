@@ -1,11 +1,12 @@
-import TravelRouteEntity from "../src/entities/travel-route.entity";
+import TravelRouteEntity from "../../src/entities/travel-route.entity";
 import {describe, it} from "@jest/globals";
-import app from "../src/app";
+import app from "../../src/app";
 import * as request from "supertest";
-import TravelChoiceService from "../src/services/travel-choice.service";
 
 describe("Travel Routes API", () => {
-    describe("GET /travel-routes", () => {
+    const baseUrl = "/travel-routes";
+
+    describe("GET /", () => {
         it("should return all travel routes", (done) => {
             //Given
             const sampleTravelRoutes = [
@@ -35,12 +36,11 @@ describe("Travel Routes API", () => {
                 })
             ];
 
-
             jest.spyOn(TravelRouteEntity, "find").mockResolvedValue(sampleTravelRoutes);
 
             // When + then
             request(app)
-                .get('/travel-routes')
+                .get(baseUrl)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -58,43 +58,6 @@ describe("Travel Routes API", () => {
 
                     done();
                 });
-        });
-    });
-
-    describe("GET /travel-choices/search", () => {
-        it('should search for travel choices with the given criteria', (done) => {
-            // Given
-            const searchSpy = jest.spyOn(TravelChoiceService, "search").mockResolvedValue([]);
-
-            // When + then
-            request(app)
-                .get("/travel-choices/search")
-                .query({
-                    originCity: "CityA",
-                    destinationCity: "CityB",
-                    type: "Plane"
-                })
-                .expect('Content-Type', /json/)
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) done(err);
-
-                    expect(searchSpy).toHaveBeenNthCalledWith(1, {
-                        originCity: "CityA",
-                        destinationCity: "CityB",
-                        type: "Plane"
-                    });
-
-                    done();
-                });
-        });
-    });
-
-    describe("Badly formed path", () => {
-        it("should return a 404 with no content for /noexistingpath", () => {
-            request(app)
-                .get('/noexistingpath')
-                .expect(404);
         });
     });
 });
