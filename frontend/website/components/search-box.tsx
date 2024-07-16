@@ -8,6 +8,7 @@ import clsx from "clsx";
 import {subtitle} from "@/components/primitives";
 import {TRAVEL_METHODS} from "@tripolite/common/models/travel-method";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
+import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
 
 export default function SearchBox({handleSearch, originCities, destinationCities, isLoading}: SearchBoxProps) {
     const {register, handleSubmit, formState: {isValid}} = useForm<TravelChoiceSearchCriteria>();
@@ -51,14 +52,16 @@ export default function SearchBox({handleSearch, originCities, destinationCities
                             })}
                         </Select>
                         <Select isRequired={false}
-                                className="flex-1 min-w-40"
-                                label="Travel Method"
-                                placeholder="Travel by"
+                                className="flex-2 min-w-40"
+                                label="Preferred Travel Method"
+                                placeholder="Travel preferently by"
                                 {...register('type')}
                         >
                             {TRAVEL_METHODS.map(method => {
                                 return (
-                                    <SelectItem key={method}>
+                                    <SelectItem key={method}
+                                                startContent={TRAVEL_METHODS_ICONS[method]({className: "w-6 h-6 flex justify-self-center align-middle"})}
+                                    >
                                         {method}
                                     </SelectItem>
                                 )
