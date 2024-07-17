@@ -7,5 +7,4 @@ const app: Express = express();
 app.use(express.json());
 app.use(AppRouter);
 
-
 export default app;

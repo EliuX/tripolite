@@ -9,6 +9,7 @@
     "build": "npx tsc -b ./tsconfig.json",
     "dev": "nodemon src/server.ts",
     "test": "npx jest",
+    "test:debug": "npx jest --detectOpenHandles",
     "prestart": "npm run build",
     "start": "cd dist && node ./server.js",
     "typeorm": "typeorm-ts-node-commonjs",
