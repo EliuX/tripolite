@@ -31,7 +31,7 @@ export default class TravelChoice implements TravelChoiceSearchCriteria {
             return 0;
         }
 
-        const preferredCount = this.paths.filter(route => route.type.trim() === this.type).length;
+        const preferredCount = this.paths.filter(route => route.type === this.type).length;
         const ratio = preferredCount / this.paths.length;
         return Math.round(ratio * 1000) / 1000;
     }

@@ -8,6 +8,8 @@ export class DataImporterService {
     constructor() {
         this.cvsParser = csvParser();
     }
+
+
     public async loadTravelRoutes(filePath: string) {
         return new Promise<void>((resolve, reject) => {
             const travelRoutes: TravelRouteEntity[] = [];
@@ -16,12 +18,12 @@ export class DataImporterService {
                 .pipe(this.cvsParser)
                 .on('data', (travelRouteRow: string[]) => {
                     const travelRouteEntity = new TravelRouteEntity({
-                        originCity: travelRouteRow['Origin City'],
-                        destinationCity: travelRouteRow['Destination City'],
-                        transportation: travelRouteRow['Transportation'],
-                        type: travelRouteRow['Type'] as TravelMethod,
-                        price: parseInt(travelRouteRow['Price']),
-                        schedule: travelRouteRow['Schedule'],
+                        originCity: travelRouteRow['Origin City']?.trim(),
+                        destinationCity: travelRouteRow['Destination City']?.trim(),
+                        transportation: travelRouteRow['Transportation']?.trim(),
+                        type: travelRouteRow['Type']?.trim() as TravelMethod,
+                        price: parseInt(travelRouteRow['Price']?.trim()),
+                        schedule: travelRouteRow['Schedule']?.trim(),
                     });
 
                     travelRoutes.push(travelRouteEntity);

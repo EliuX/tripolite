@@ -10,12 +10,6 @@ class TravelChoiceService {
         return this.findAllPaths(routes, criteria);
     }
 
-    /**
-     * Searches for all paths from the origin city to the destination city using Depth-First Search (DFS)
-     * @generated using ChatGPT-4
-     * @param routes The routes in the database available to do the graph search
-     * @param criteria
-     */
     private findAllPaths(routes: TravelRoute[], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
         const graph = this.buildGraph(routes);
         const paths: TravelRoute[][] = [];
@@ -40,7 +34,9 @@ class TravelChoiceService {
         };
 
         dfs(criteria.originCity, []);
-        return this.rankPaths(paths, criteria);
+
+        const travelChoices = this.convertToTravelChoices(paths, criteria);
+        return this.rankTravelChoices(travelChoices, criteria);
     }
 
     private buildGraph(routes: TravelRoute[]): Map<string, TravelRoute[]> {
@@ -57,9 +53,7 @@ class TravelChoiceService {
         return graph;
     }
 
-    private rankPaths(paths: TravelRoute[][], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
-        const travelChoices = this.convertToTravelChoices(paths, criteria);
-
+    private rankTravelChoices(travelChoices: TravelChoice[], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
         travelChoices.sort((a, b) => {
             if (b.satisfactionRatio !== a.satisfactionRatio) {
                 return b.satisfactionRatio - a.satisfactionRatio;
