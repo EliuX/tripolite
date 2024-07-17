@@ -10,9 +10,15 @@ class TravelChoiceService {
 
         const results = this.findAllPaths(routes, criteria);
 
-        const startPosition = paginable?.offset ?? DEFAULT_OFFSET;
-        const endPosition = Math.min(startPosition + (paginable?.limit ?? DEFAULT_LIMIT), results.length);
-        return results.slice(startPosition, endPosition);
+        const {startPosition, endPosition} = this.parsePaginable(paginable);
+        return results.slice(startPosition, Math.min(endPosition, results.length));
+    }
+
+    parsePaginable(paginable?: Partial<Paginable>) {
+        const startPosition = parseInt((paginable?.offset ?? DEFAULT_OFFSET).toString());
+        const endPosition = startPosition + parseInt((paginable?.limit ?? DEFAULT_LIMIT).toString());
+
+        return  {startPosition, endPosition};
     }
 
     private findAllPaths(routes: TravelRoute[], criteria: TravelChoiceSearchCriteria): TravelChoice[] {

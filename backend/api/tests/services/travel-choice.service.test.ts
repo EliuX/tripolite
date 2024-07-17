@@ -1,7 +1,8 @@
 import TravelChoiceSearchCriteria from "../../../../common/src/models/travel-choice-search-criteria";
 import TravelRoute from "../../../../common/src/models/travel-route";
 import TravelRouteEntity from "../../src/entities/travel-route.entity";
-import TravelChoiceService from "../../src/services/travel-choice.service";
+import travelChoiceService from "../../src/services/travel-choice.service";
+import Paginable, {DEFAULT_OFFSET} from "../../../../common/src/paginable";
 
 
 jest.mock("../../src/entities/travel-route.entity");
@@ -52,7 +53,7 @@ describe('TravelChoiceService', () => {
             };
 
             // When
-            const results = await TravelChoiceService.search(criteria);
+            const results = await travelChoiceService.search(criteria);
 
             // Then
             expect(results).toHaveLength(2);
@@ -128,7 +129,7 @@ describe('TravelChoiceService', () => {
 
             it('should return 5 choices prioritized by the preferred transportation type and the shortest path', async () => {
                 // When
-                const results = await TravelChoiceService.search(criteria);
+                const results = await travelChoiceService.search(criteria);
 
                 // Then
                 expect(results).toHaveLength(5);
@@ -160,7 +161,7 @@ describe('TravelChoiceService', () => {
 
             it("should return the 3 first entries when limit=3", async()=> {
                 // When
-                const results = await TravelChoiceService.search(criteria, {limit: 3});
+                const results = await travelChoiceService.search(criteria, {limit: 3});
 
                 // Then
                 expect(results).toHaveLength(3);
@@ -187,7 +188,7 @@ describe('TravelChoiceService', () => {
 
             it("should return the last 2 entries when offset=3", async()=> {
                 // When
-                const results = await TravelChoiceService.search(criteria, {offset: 3});
+                const results = await travelChoiceService.search(criteria, {offset: 3});
 
                 // Then
                 expect(results).toHaveLength(2);
@@ -200,7 +201,7 @@ describe('TravelChoiceService', () => {
 
             it("should return the last item entries when offset=4 and limit=1", async()=> {
                 // When
-                const results = await TravelChoiceService.search(criteria, {limit: 1, offset: 4});
+                const results = await travelChoiceService.search(criteria, {limit: 1, offset: 4});
 
                 // Then
                 expect(results).toHaveLength(1);
@@ -219,9 +220,76 @@ describe('TravelChoiceService', () => {
                 originCity: 'A',
                 destinationCity: 'C'
             };
-            const results = await TravelChoiceService.search(criteria);
+            const results = await travelChoiceService.search(criteria);
 
             expect(results).toHaveLength(0);
+        });
+
+
+        describe('parsePaginable', () => {
+            it('should return default positions when paginable is undefined', () => {
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable();
+
+                expect(startPosition).toBe(0);
+                expect(endPosition).toBe(100);
+            });
+
+            it('should return positions based on provided offset and limit', () => {
+                const paginable = { offset: 5, limit: 15 };
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(5);
+                expect(endPosition).toBe(20);
+            });
+
+            it('should return positions with default offset when only limit is provided', () => {
+                const paginable = { limit: 20 };
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(DEFAULT_OFFSET);
+                expect(endPosition).toBe(DEFAULT_OFFSET + 20);
+            });
+
+            it('should return positions with default limit when only offset is provided', () => {
+                const paginable = { offset: 10 };
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(10);
+                expect(endPosition).toBe(110);
+            });
+
+            it('should handle edge case when limit is zero', () => {
+                const paginable = { offset: 10, limit: 0 };
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(10);
+                expect(endPosition).toBe(10);
+            });
+
+            it('should handle edge case when offset is negative', () => {
+                const paginable = { offset: -5, limit: 10 };
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(-5);
+                expect(endPosition).toBe(5);
+            });
+
+            it('should handle edge case when limit is negative', () => {
+                const paginable = { offset: 10, limit: -10 };
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(10);
+                expect(endPosition).toBe(0);
+            });
+
+            it('should parse correctly the pagination if it is a string', ()=> {
+                const paginable = JSON.parse("{ \"offset\": \"100\", \"limit\": \"100\" }") as Paginable;
+
+                const { startPosition, endPosition } = travelChoiceService.parsePaginable(paginable);
+
+                expect(startPosition).toBe(100);
+                expect(endPosition).toBe(200);
+            });
         });
     });
 });
