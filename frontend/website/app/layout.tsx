@@ -8,6 +8,7 @@ import {siteConfig} from "@/config/site";
 import {fontSans} from "@/config/fonts";
 import {Navbar} from "@/components/navbar";
 import {Link} from "@nextui-org/link";
+import {GithubIcon} from "@/components/icons";
 
 export const metadata: Metadata = {
     title: {
@@ -49,8 +50,12 @@ export default function RootLayout({
                 </main>
                 <footer className="w-full flex items-center justify-center py-3">
                     <span className="text-default-600">Made by&nbsp;
-                        <Link href={siteConfig.links.github} className="text-primary">EliuX</Link>
+                        <Link href={siteConfig.links.github} className="text-primary">EliuX</Link>,
+                        &nbsp;available in&nbsp;
                     </span>
+                    <Link title={"See project in Github"} isExternal aria-label="Github" href={siteConfig.links.sourceCodeProject}>
+                        <GithubIcon className="text-default-500" />
+                    </Link>
                 </footer>
             </div>
         </Providers>

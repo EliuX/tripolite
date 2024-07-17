@@ -55,9 +55,6 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
-          <Link title={"See project in Github"} isExternal aria-label="Github" href={siteConfig.links.sourceCodeProject}>
-            <GithubIcon className="text-default-500" />
-          </Link>
         </NavbarItem>
       </NavbarContent>
 

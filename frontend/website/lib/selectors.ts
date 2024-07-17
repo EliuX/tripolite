@@ -12,4 +12,7 @@ export const selectDestinationCities = createSelector(selectTravelRoutes, (trave
 });
 
 export const selectTravelSearchCriteria = (state: RootState) => state.travelChoicesSearch.criteria;
+export const isTravelSearchCriteriaValid = createSelector(selectTravelSearchCriteria, (criteria) => {
+    return !!(criteria.originCity && criteria.destinationCity);
+});
 export const selectTravelSearchResults = (state: RootState) => state.travelChoicesSearch.results;
