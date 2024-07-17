@@ -111,7 +111,7 @@ describe('TravelChoiceService', () => {
                     destinationCity: 'D',
                     transportation: 'Plane Company 4',
                     type: 'Plane',
-                    price: 100,
+                    price: 10,
                     schedule: 'MTWTFSS'
                 },
             ];
@@ -138,8 +138,16 @@ describe('TravelChoiceService', () => {
             // Second choice
             expect(results[1].paths).toHaveLength(2);
             expect(results[1].satisfactionRatio).toEqual(1);
+            expect(results[1].price).toEqual(150);
             expect(results[1].paths[0].uid).toEqual("3");
             expect(results[1].paths[1].uid).toEqual("11");
+
+            // Third choice
+            expect(results[2].paths).toHaveLength(2);
+            expect(results[2].satisfactionRatio).toEqual(0.5);
+            expect(results[2].price).toEqual(60);
+            expect(results[2].paths[0].uid).toEqual("1");
+            expect(results[2].paths[1].uid).toEqual("15");
 
             // Last choice
             expect(results[4].paths).toHaveLength(1);
