@@ -10,9 +10,13 @@ const travelChoicesRoutes = new TravelChoices();
 router.get(travelChoicesRoutes.search, async (req, res: Response) => {
     const searchCriteria = req.query as TravelChoiceSearchCriteria;
 
-    const result = await travelChoiceService.search(searchCriteria);
+    if(searchCriteria?.originCity && searchCriteria.destinationCity) {
+        const result = await travelChoiceService.search(searchCriteria);
 
-    res.send(result);
+        res.send(result);
+    } else {
+        res.status(400).send({ message: "Invalid search criteria"});
+    }
 });
 
 export default router;

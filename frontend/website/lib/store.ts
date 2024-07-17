@@ -1,12 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit'
 import travelRoutesReducer from "@/lib/features/travelRoutes/travelRoutesSlice";
-import travelRoutesSearchReducer from "@/lib/features/travelRoutes/travelRoutesSearchSlice";
+import travelChoicesSearchReducer from "@/lib/features/travelRoutes/travelsSearchSlice";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             travelRoutes: travelRoutesReducer,
-            searchTravelRoutes: travelRoutesSearchReducer,
+            travelChoicesSearch: travelChoicesSearchReducer,
         }
     });
 };

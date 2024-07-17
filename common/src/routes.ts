@@ -2,8 +2,8 @@ export default class ApiRoutes {
     travelRoutes: TravelRoutes;
     travelChoices: TravelChoices;
     constructor(public baseUrl = "") {
-        this.travelRoutes = new TravelRoutes(baseUrl + "/travel/routes");
-        this.travelChoices = new TravelChoices(baseUrl + "/travel/choices");
+        this.travelRoutes = new TravelRoutes(baseUrl + "/travels/routes");
+        this.travelChoices = new TravelChoices(baseUrl + "/travels/choices");
     }
 }
 

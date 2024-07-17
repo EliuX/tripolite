@@ -11,5 +11,5 @@ export const selectDestinationCities = createSelector(selectTravelRoutes, (trave
     return Array.from(new Set(travelRoutes.map(route => route.destinationCity))).sort();
 });
 
-export const selectTravelRoutesSearchCriteria = (state: RootState) => state.searchTravelRoutes.criteria;
-export const selectTravelRoutesSearchResults = (state: RootState) => state.searchTravelRoutes.results;
+export const selectTravelSearchCriteria = (state: RootState) => state.travelChoicesSearch.criteria;
+export const selectTravelSearchResults = (state: RootState) => state.travelChoicesSearch.results;

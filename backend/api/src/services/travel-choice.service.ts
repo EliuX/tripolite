@@ -5,7 +5,7 @@ import TravelChoice from "@tripolite/common/models/travel-choice";
 
 class TravelChoiceService {
     public async search(criteria: TravelChoiceSearchCriteria): Promise<TravelChoice[]> {
-        const routes = await TravelRouteEntity.createQueryBuilder("travelRoute").getMany();
+        const routes = await TravelRouteEntity.find();
 
         return this.findAllPaths(routes, criteria);
     }

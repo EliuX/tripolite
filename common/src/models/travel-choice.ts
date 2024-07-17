@@ -1,17 +1,21 @@
 import TravelRoute from "./travel-route";
 import TravelChoiceSearchCriteria from "./travel-choice-search-criteria";
-import TravelMethod from "./travel-method";
 
 export default class TravelChoice implements TravelChoiceSearchCriteria {
 
-    originCity: string;
-    destinationCity: string;
-    type?: TravelMethod;
+    constructor(public paths: TravelRoute[], public criteria: TravelChoiceSearchCriteria) {
+    }
 
-    constructor(public paths: TravelRoute[], searchCriteria: TravelChoiceSearchCriteria) {
-        this.originCity = searchCriteria.originCity;
-        this.destinationCity = searchCriteria.destinationCity;
-        this.type = searchCriteria.type;
+    get originCity() {
+        return this.criteria.originCity;
+    }
+
+    get destinationCity() {
+        return this.criteria.destinationCity;
+    }
+
+    get type() {
+        return this.criteria.type;
     }
 
     get price(): number | undefined {
@@ -27,7 +31,7 @@ export default class TravelChoice implements TravelChoiceSearchCriteria {
             return 0;
         }
 
-        const preferredCount = this.paths.filter(route => route.type === this.type).length;
+        const preferredCount = this.paths.filter(route => route.type.trim() === this.type).length;
         const ratio = preferredCount / this.paths.length;
         return Math.round(ratio * 1000) / 1000;
     }

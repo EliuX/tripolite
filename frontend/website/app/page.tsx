@@ -9,10 +9,10 @@ import SearchBox from "@/components/search-box";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectDestinationCities, selectOriginCities} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
-import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import {setSearchCriteria} from "@/lib/features/travelRoutes/travelRoutesSearchSlice";
+import {setSearchCriteria} from "@/lib/features/travelRoutes/travelsSearchSlice";
 import {useRouter} from "next/navigation";
+import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
 
 export default function Home() {
     const [isLoadingTravelRoutes, setIsLoadingTravelRoutes] = useState(false);
@@ -31,7 +31,7 @@ export default function Home() {
 
     const loadSearchPage = (searchCriteria: TravelChoiceSearchCriteria) => {
         dispatch(setSearchCriteria(searchCriteria));
-        router.push('travel-routes/search');
+        router.push('/travel-search');
     }
 
     const originCities = useAppSelector(selectOriginCities);

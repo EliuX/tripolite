@@ -5,6 +5,7 @@
   "homepage": "https://github.com/EliuX/tripolite#readme",
   "scripts": {
     "start": "npm run start:frontend",
+    "dev": "npm run dev --prefix=frontend/website",
     "start:frontend": "npm start --prefix=frontend/website",
     "start:backend": "npm start --prefix=backend/api",
     "test": "npm test --prefix=backend/api && npm test --prefix=frontend/website"

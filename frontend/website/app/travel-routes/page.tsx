@@ -6,10 +6,15 @@ import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectTravelRoutes} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
+import {Simulate} from "react-dom/test-utils";
+import change = Simulate.change;
 
 
 export default function TravelRoutesPage() {
     const [isLoadingTravelRoutes, setIsLoadingTravelRoutes] = useState(false);
+    const [defaultMessage, changeDefaultMessage]
+        = useState("There is no travel routes available for the moment. Please try again later.");
+
     const travelRoutes = useAppSelector(selectTravelRoutes);
     const dispatch = useAppDispatch();
 
@@ -17,8 +22,9 @@ export default function TravelRoutesPage() {
         setIsLoadingTravelRoutes(true);
         loadTravelRoutes().then(routes => {
             dispatch(setTravelRoutes(routes));
-            setIsLoadingTravelRoutes(false);
-        });
+        })
+            .catch(()=> changeDefaultMessage("There was an error loading the travel routes. Please try again later."))
+            .finally(() => setIsLoadingTravelRoutes(false));
     }, [dispatch]);
 
     return (
@@ -40,7 +46,7 @@ export default function TravelRoutesPage() {
                     <TableColumn>Schedule</TableColumn>
                 </TableHeader>
                 <TableBody
-                    emptyContent={<p>There is no travel routes available for the moment. Please try again later.</p>}
+                    emptyContent={<p>{defaultMessage}</p>}
                     aria-label={"Travel routes data"}
                     isLoading={isLoadingTravelRoutes && !travelRoutes?.length}
                     loadingContent={<Spinner label="Loading..."/>}>

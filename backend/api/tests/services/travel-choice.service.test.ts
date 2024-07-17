@@ -1,5 +1,5 @@
-import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import TravelRoute from "@tripolite/common/models/travel-route";
+import TravelChoiceSearchCriteria from "../../../../common/src/models/travel-choice-search-criteria";
+import TravelRoute from "../../../../common/src/models/travel-route";
 import TravelRouteEntity from "../../src/entities/travel-route.entity";
 import TravelChoiceService from "../../src/services/travel-choice.service";
 
@@ -44,9 +44,7 @@ describe('TravelChoiceService', () => {
         it('should return all paths from origin to destination prioritizing ' +
             'the shortest path when no type is specified', async () => {
             // Given
-            (TravelRouteEntity.createQueryBuilder as jest.Mock).mockReturnValue({
-                getMany: jest.fn().mockResolvedValue(basicMockRoutes),
-            });
+            (TravelRouteEntity.find as jest.Mock).mockResolvedValue(basicMockRoutes);
 
             const criteria: TravelChoiceSearchCriteria = {
                 originCity: 'A',
@@ -118,9 +116,7 @@ describe('TravelChoiceService', () => {
                 },
             ];
 
-            (TravelRouteEntity.createQueryBuilder as jest.Mock).mockReturnValue({
-                getMany: jest.fn().mockResolvedValue(mockRoutes),
-            });
+            (TravelRouteEntity.find as jest.Mock).mockResolvedValue(mockRoutes);
 
             const criteria: TravelChoiceSearchCriteria = {
                 originCity: 'A',
@@ -152,9 +148,7 @@ describe('TravelChoiceService', () => {
         });
 
         it('should handle no routes found', async () => {
-            (TravelRouteEntity.createQueryBuilder as jest.Mock).mockReturnValue({
-                getMany: jest.fn().mockResolvedValue([]),
-            });
+            (TravelRouteEntity.find as jest.Mock).mockResolvedValue([]);
 
             const criteria: TravelChoiceSearchCriteria = {
                 originCity: 'A',
