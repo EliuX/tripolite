@@ -4,12 +4,11 @@
   "description": "API for Tripolite",
   "main": "dist/server.js",
   "scripts": {
-    "postinstall": "npm run build",
     "lint": "npx eslint .",
     "build": "npx tsc -b ./tsconfig.json",
     "dev": "nodemon src/server.ts",
     "test": "npx jest",
-    "test:debug": "npx jest --detectOpenHandles",
+    "test:debug": "npm test -- --detectOpenHandles",
     "prestart": "npm run build",
     "start": "cd dist && node ./server.js",
     "typeorm": "typeorm-ts-node-commonjs",

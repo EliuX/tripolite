@@ -65,7 +65,7 @@ describe('TravelChoiceService', () => {
             expect(results[1].paths[1]).toBe(basicMockRoutes[1]);
         });
 
-        it('should prioritize the preferred transportation type and the shortest path', async () => {
+        describe("With a relatively large set of routes", () => {
             // Given
             const mockRoutes: TravelRoute[] = [
                 ...basicMockRoutes,
@@ -116,43 +116,100 @@ describe('TravelChoiceService', () => {
                 },
             ];
 
-            (TravelRouteEntity.find as jest.Mock).mockResolvedValue(mockRoutes);
-
             const criteria: TravelChoiceSearchCriteria = {
                 originCity: 'A',
                 destinationCity: 'D',
-                type: 'Plane'
+                type: 'Plane',
             };
 
-            // When
-            const results = await TravelChoiceService.search(criteria);
+            beforeAll(()=> {
+                (TravelRouteEntity.find as jest.Mock).mockResolvedValue(mockRoutes);
+            });
 
-            // Then
-            expect(results).toHaveLength(5);
+            it('should return 5 choices prioritized by the preferred transportation type and the shortest path', async () => {
+                // When
+                const results = await TravelChoiceService.search(criteria);
 
-            // Shortest route
-            expect(results[0].paths).toHaveLength(1);
-            expect(results[0].satisfactionRatio).toEqual(1);
-            expect(results[0].paths[0].uid).toEqual("13");
+                // Then
+                expect(results).toHaveLength(5);
 
-            // Second choice
-            expect(results[1].paths).toHaveLength(2);
-            expect(results[1].satisfactionRatio).toEqual(1);
-            expect(results[1].price).toEqual(150);
-            expect(results[1].paths[0].uid).toEqual("3");
-            expect(results[1].paths[1].uid).toEqual("11");
+                // Shortest route
+                expect(results[0].paths).toHaveLength(1);
+                expect(results[0].satisfactionRatio).toEqual(1);
+                expect(results[0].paths[0].uid).toEqual("13");
 
-            // Third choice
-            expect(results[2].paths).toHaveLength(2);
-            expect(results[2].satisfactionRatio).toEqual(0.5);
-            expect(results[2].price).toEqual(60);
-            expect(results[2].paths[0].uid).toEqual("1");
-            expect(results[2].paths[1].uid).toEqual("15");
+                // Second choice
+                expect(results[1].paths).toHaveLength(2);
+                expect(results[1].satisfactionRatio).toEqual(1);
+                expect(results[1].price).toEqual(150);
+                expect(results[1].paths[0].uid).toEqual("3");
+                expect(results[1].paths[1].uid).toEqual("11");
 
-            // Last choice
-            expect(results[4].paths).toHaveLength(1);
-            expect(results[4].satisfactionRatio).toBe(0);
-            expect(results[4].paths[0].uid).toEqual("14");
+                // Third choice
+                expect(results[2].paths).toHaveLength(2);
+                expect(results[2].satisfactionRatio).toEqual(0.5);
+                expect(results[2].price).toEqual(60);
+                expect(results[2].paths[0].uid).toEqual("1");
+                expect(results[2].paths[1].uid).toEqual("15");
+
+                // Last choice
+                expect(results[4].paths).toHaveLength(1);
+                expect(results[4].satisfactionRatio).toBe(0);
+                expect(results[4].paths[0].uid).toEqual("14");
+            });
+
+            it("should return the 3 first entries when limit=3", async()=> {
+                // When
+                const results = await TravelChoiceService.search(criteria, {limit: 3});
+
+                // Then
+                expect(results).toHaveLength(3);
+
+                // Shortest route
+                expect(results[0].paths).toHaveLength(1);
+                expect(results[0].satisfactionRatio).toEqual(1);
+                expect(results[0].paths[0].uid).toEqual("13");
+
+                // Second choice
+                expect(results[1].paths).toHaveLength(2);
+                expect(results[1].satisfactionRatio).toEqual(1);
+                expect(results[1].price).toEqual(150);
+                expect(results[1].paths[0].uid).toEqual("3");
+                expect(results[1].paths[1].uid).toEqual("11");
+
+                // Last choice
+                expect(results[2].paths).toHaveLength(2);
+                expect(results[2].satisfactionRatio).toEqual(0.5);
+                expect(results[2].price).toEqual(60);
+                expect(results[2].paths[0].uid).toEqual("1");
+                expect(results[2].paths[1].uid).toEqual("15");
+            });
+
+            it("should return the last 2 entries when offset=3", async()=> {
+                // When
+                const results = await TravelChoiceService.search(criteria, {offset: 3});
+
+                // Then
+                expect(results).toHaveLength(2);
+
+                // Last choice
+                expect(results[1].paths).toHaveLength(1);
+                expect(results[1].satisfactionRatio).toBe(0);
+                expect(results[1].paths[0].uid).toEqual("14");
+            });
+
+            it("should return the last item entries when offset=4 and limit=1", async()=> {
+                // When
+                const results = await TravelChoiceService.search(criteria, {limit: 1, offset: 4});
+
+                // Then
+                expect(results).toHaveLength(1);
+
+                // The Last choice is the only choice
+                expect(results[0].paths).toHaveLength(1);
+                expect(results[0].satisfactionRatio).toBe(0);
+                expect(results[0].paths[0].uid).toEqual("14");
+            });
         });
 
         it('should handle no routes found', async () => {

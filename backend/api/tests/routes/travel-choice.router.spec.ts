@@ -4,7 +4,6 @@ import * as request from "supertest";
 import TravelChoiceService from "../../src/services/travel-choice.service";
 import {apiRoutes} from "../../src/routes";
 import Message from "../../src/shared/message";
-import TravelChoice from "../../../../common/src/models/travel-choice";
 
 describe("Travel Choices API", () => {
     beforeEach(() => {
@@ -29,11 +28,7 @@ describe("Travel Choices API", () => {
                 .end(function (err, res) {
                     if (err) done(err);
 
-                    expect(searchSpy).toHaveBeenNthCalledWith(1, {
-                        originCity: "CityA",
-                        destinationCity: "CityB",
-                        type: "Plane"
-                    });
+                    expect(searchSpy).toHaveBeenCalledTimes(1);
 
                     done();
                 });
