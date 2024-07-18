@@ -14,7 +14,7 @@ router.get(travelChoicesRoutes.search, async (req: Request<TravelChoiceSearchCri
     if(searchCriteria?.originCity && searchCriteria.destinationCity) {
         const pagination = req.query as Partial<Paginable>;
 
-        const result = await travelChoiceService.search(searchCriteria, pagination);
+        const result = await travelChoiceService.searchDtos(searchCriteria, pagination);
 
         res.send(result);
     } else {

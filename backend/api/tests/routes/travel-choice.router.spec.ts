@@ -11,9 +11,9 @@ describe("Travel Choices API", () => {
     });
 
     describe("GET /search", () => {
-        it('should search for travel choices with the given criteria', (done) => {
+        it('should search for travel choices dtos with the given criteria', (done) => {
             // Given
-            const searchSpy = jest.spyOn(TravelChoiceService, "search").mockResolvedValue([]);
+            const searchSpy = jest.spyOn(TravelChoiceService, "searchDtos").mockResolvedValue([]);
 
             // When + then
             request(app)
@@ -37,7 +37,7 @@ describe("Travel Choices API", () => {
 
     it("should handle no search criteria provided", (done) => {
         // Given
-        const searchSpy = jest.spyOn(TravelChoiceService, "search").mockResolvedValue([]);
+        const searchSpy = jest.spyOn(TravelChoiceService, "searchDtos").mockResolvedValue([]);
 
         // When + then
         request(app)

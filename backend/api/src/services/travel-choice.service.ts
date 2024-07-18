@@ -5,7 +5,11 @@ import Paginable, {DEFAULT_LIMIT, DEFAULT_OFFSET} from "@tripolite/common/pagina
 import {travelRouteRepository} from "../data-source";
 
 class TravelChoiceService {
-    public async search(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoiceDto[]> {
+
+    public async searchDtos(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoiceDto[]> {
+        return this.search(criteria, paginable).then(r=>r.map(r=>r.toDto()));
+    }
+    public async search(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoice[]> {
         const routes: TravelRoute[] = await travelRouteRepository.find()
             .then(result => result.map(e => e.toDto()));
 
@@ -13,8 +17,7 @@ class TravelChoiceService {
 
         const {startPosition, endPosition} = this.parsePaginable(paginable);
         return results
-            .slice(startPosition, Math.min(endPosition, results.length))
-            .map(tc => tc.toDto());
+            .slice(startPosition, Math.min(endPosition, results.length));
     }
 
     parsePaginable(paginable?: Partial<Paginable>) {
