@@ -51,3 +51,16 @@ export const subtitle = tv({
     fullWidth: true,
   },
 });
+
+export const price = tv({
+  base: "w-full md:w-1/2 text-default-2xl text-default-400",
+  variants: {
+    fullWidth: {
+      true: "!w-full",
+    },
+  },
+  defaultVariants: {
+    fullWidth: true,
+  },
+});
+

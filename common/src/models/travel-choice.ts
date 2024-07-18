@@ -10,7 +10,11 @@ export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearch
     static counter = 0;
     id = ++TravelChoice.counter;
 
+    cities: string[];
+
     constructor(public paths: TravelRoute[], public criteria: TravelChoiceSearchCriteria) {
+        this.cities = this.paths.map((route) => route.originCity);
+        this.cities.push(criteria.destinationCity);
     }
 
     get originCity() {
@@ -33,6 +37,10 @@ export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearch
         return this.paths.reduce((t, r) => t + r.price, 0);
     }
 
+    get priceStr() {
+        return this.price ? `$${this.price.toFixed(2)}` : 'TBD';
+    }
+
     get satisfactionRatio(): number {
         if (!this.type) {
             return 0;
@@ -43,14 +51,10 @@ export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearch
         return Math.round(ratio * 1000) / 1000;
     }
 
-    get cities() {
-        return this.paths.map((route, index)=> (index === 0) ? route.originCity : route.destinationCity);
-    }
-
     toDto(): TravelChoiceDto {
-       return {
-           criteria: this.criteria,
-           paths: this.paths,
-       };
+        return {
+            criteria: this.criteria,
+            paths: this.paths,
+        };
     }
 }
