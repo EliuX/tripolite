@@ -1,7 +1,14 @@
 import TravelRoute from "./travel-route";
 import TravelChoiceSearchCriteria from "./travel-choice-search-criteria";
 
-export default class TravelChoice implements TravelChoiceSearchCriteria {
+export interface TravelChoiceDto {
+    paths: TravelRoute[];
+    criteria: TravelChoiceSearchCriteria;
+}
+
+export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearchCriteria {
+    static counter = 0;
+    id = ++TravelChoice.counter;
 
     constructor(public paths: TravelRoute[], public criteria: TravelChoiceSearchCriteria) {
     }
@@ -34,5 +41,16 @@ export default class TravelChoice implements TravelChoiceSearchCriteria {
         const preferredCount = this.paths.filter(route => route.type === this.type).length;
         const ratio = preferredCount / this.paths.length;
         return Math.round(ratio * 1000) / 1000;
+    }
+
+    get cities() {
+        return this.paths.map((route, index)=> (index === 0) ? route.originCity : route.destinationCity);
+    }
+
+    toDto(): TravelChoiceDto {
+       return {
+           criteria: this.criteria,
+           paths: this.paths,
+       };
     }
 }

@@ -1,5 +1,6 @@
 import {RootState} from './store';
 import {createSelector} from "reselect";
+import TravelChoice from "@tripolite/common/models/travel-choice";
 
 export const selectTravelRoutes = (state: RootState) => state.travelRoutes.all;
 
@@ -10,9 +11,11 @@ export const selectOriginCities = createSelector(selectTravelRoutes, (travelRout
 export const selectDestinationCities = createSelector(selectTravelRoutes, (travelRoutes) => {
     return Array.from(new Set(travelRoutes.map(route => route.destinationCity))).sort();
 });
+export const selectTravelChoicesSearch = (state: RootState) => state.travelChoicesSearch;
 
 export const selectTravelSearchCriteria = (state: RootState) => state.travelChoicesSearch.criteria;
 export const isTravelSearchCriteriaValid = createSelector(selectTravelSearchCriteria, (criteria) => {
     return !!(criteria.originCity && criteria.destinationCity);
 });
-export const selectTravelSearchResults = (state: RootState) => state.travelChoicesSearch.results;
+export const selectTravelChoiceSearchResults = createSelector(selectTravelChoicesSearch, (search) =>
+    search.results.map(dto => new TravelChoice(dto.paths, dto.criteria)));
