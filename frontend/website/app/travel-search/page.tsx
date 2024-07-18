@@ -120,8 +120,8 @@ export default function SearchPage() {
                             ) : null
                         }
                         classNames={{
-                            base: "max-h-[520px] overflow-scroll",
-                            table: "min-h-[400px]",
+                            base: "max-h-[520px] overflow-scroll flex-2",
+                            table: "min-h-[450px]",
                         }}
                     >
                         <TableHeader>

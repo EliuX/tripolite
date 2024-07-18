@@ -1,18 +1,20 @@
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import TravelChoice from "@tripolite/common/models/travel-choice";
+import TravelChoice, {TravelChoiceDto} from "@tripolite/common/models/travel-choice";
 import Paginable, {DEFAULT_LIMIT, DEFAULT_OFFSET} from "@tripolite/common/paginable";
 import {travelRouteRepository} from "../data-source";
 
 class TravelChoiceService {
-    public async search(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoice[]> {
+    public async search(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoiceDto[]> {
         const routes: TravelRoute[] = await travelRouteRepository.find()
             .then(result => result.map(e => e.toDto()));
 
         const results = this.findAllPaths(routes, criteria);
 
         const {startPosition, endPosition} = this.parsePaginable(paginable);
-        return results.slice(startPosition, Math.min(endPosition, results.length));
+        return results
+            .slice(startPosition, Math.min(endPosition, results.length))
+            .map(tc => tc.toDto());
     }
 
     parsePaginable(paginable?: Partial<Paginable>) {

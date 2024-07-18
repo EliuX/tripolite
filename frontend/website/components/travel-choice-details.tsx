@@ -6,6 +6,7 @@ import {price, subtitle} from "@/components/primitives";
 import {CircularProgress} from "@nextui-org/progress";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
 import TravelChoiceRoutesDetails from "@/components/travel-choice-routes-details";
+import {Button} from "@nextui-org/button";
 
 export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsProps) {
     return <Card className="max-w-[500px]">
@@ -35,8 +36,8 @@ export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsP
             <TravelChoiceRoutesDetails travelRoutes={travelChoice.paths}/>
         </CardBody>
         <Divider/>
-        <CardFooter className={"text-small"}>
-            <p>You will make {travelChoice.cities.length - 1} stop(s)</p>
+        <CardFooter>
+            <Button color={'primary'}>Book now</Button>
         </CardFooter>
     </Card>
 }

@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import {useRouter} from "next/navigation";
+import {Link} from "@nextui-org/link";
+import {Divider} from "@nextui-org/divider";
 
 export default function Error({
   error,
@@ -9,6 +12,8 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
+   const router = useRouter();
+
   useEffect(() => {
     // Log the error to an error reporting service
     /* eslint-disable no-console */
@@ -18,14 +23,22 @@ export default function Error({
   return (
     <div>
       <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
+       <p>Our team is working on it!</p>
+      <Divider />
+      <section className={"flex-col flex-row gap-4"}>
+          <Link
+              onPress={
+                  () => reset()
+              }
+          >
+              Try again
+          </Link>
+          <Link
+              onPress={router.back}
+          >
+              Go back
+          </Link>
+      </section>
     </div>
   );
 }
