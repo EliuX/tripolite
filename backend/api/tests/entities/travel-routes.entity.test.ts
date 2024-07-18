@@ -3,7 +3,7 @@ import TravelRoute from "@tripolite/common/models/travel-route";
 
 
 describe('TravelRouteEntity', () => {
-    test('convert to TravelRoute', () => {
+    test('convert to Dto(TravelRoute) vs JSON printing', () => {
         const uid = '668e1a0c9b4440df56ca4c04';
 
         const travelRoute = {
@@ -25,7 +25,7 @@ describe('TravelRouteEntity', () => {
         expect(entityJSON).toContain("_id");
         expect(entityJSON).not.toContain("uid");
 
-        const dtoJSON = JSON.stringify(travelRouteEntity.toTravelRoute());
+        const dtoJSON = JSON.stringify(travelRouteEntity.toDto());
         expect(dtoJSON).toContain("uid");
         expect(dtoJSON).not.toContain("_id");
     });

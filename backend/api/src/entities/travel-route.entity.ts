@@ -1,9 +1,7 @@
 import TravelRoute from "@tripolite/common/models/travel-route";
 import {Column, Entity} from "typeorm"
-import { ObjectId } from 'mongodb';
+import {ObjectId} from 'mongodb';
 import {BaseEntity} from "./base.entity";
-import * as csvParser from "csv-parser";
-import * as fs from "fs";
 import TravelMethod from "@tripolite/common/models/travel-method";
 
 @Entity({name: 'travel-routes'})
@@ -30,9 +28,9 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
         super();
 
         if (data) {
-            if(data["_id"]) {
+            if (data["_id"]) {
                 this._id = data["_id"];
-            } else if(data.uid) {
+            } else if (data.uid) {
                 this._id = ObjectId.createFromHexString(data.uid);
             }
 
@@ -45,7 +43,7 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
         }
     }
 
-    public toTravelRoute(): TravelRoute {
+    public toDto(): TravelRoute {
         return {
             uid: this.uid,
             originCity: this.originCity,

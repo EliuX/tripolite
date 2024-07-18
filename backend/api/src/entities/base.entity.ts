@@ -1,7 +1,7 @@
 import {ObjectId} from "mongodb";
-import {BaseEntity as TypeOrmBaseEntity, Column, ObjectIdColumn} from "typeorm";
+import {Column, ObjectIdColumn} from "typeorm";
 
-export abstract class BaseEntity extends TypeOrmBaseEntity {
+export abstract class BaseEntity {
 
     @ObjectIdColumn()
     _id!: ObjectId;

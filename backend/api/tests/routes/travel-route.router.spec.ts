@@ -3,6 +3,7 @@ import {describe, it} from "@jest/globals";
 import app from "../../src/app";
 import * as request from "supertest";
 import {apiRoutes} from "../../src/routes";
+import {travelRouteRepository} from "../../src/data-source";
 
 describe("Travel Routes API", () => {
     describe("GET /", () => {
@@ -35,7 +36,7 @@ describe("Travel Routes API", () => {
                 })
             ];
 
-            jest.spyOn(TravelRouteEntity, "find").mockResolvedValue(sampleTravelRoutes);
+            jest.spyOn(travelRouteRepository, "find").mockResolvedValue(sampleTravelRoutes);
 
             // When + then
             request(app)

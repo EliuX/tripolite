@@ -2,13 +2,13 @@ import * as csvParser from 'csv-parser';
 import * as fs from 'fs';
 import TravelRouteEntity from "../entities/travel-route.entity";
 import TravelMethod from "@tripolite/common/models/travel-method";
+import {travelRouteRepository} from "../data-source";
 
 export class DataImporterService {
     private cvsParser: csvParser.CsvParser;
     constructor() {
         this.cvsParser = csvParser();
     }
-
 
     public async loadTravelRoutes(filePath: string) {
         return new Promise<void>((resolve, reject) => {
@@ -31,7 +31,7 @@ export class DataImporterService {
                 .on('end', async () => {
                     try {
                         console.log(`Loaded ${travelRoutes.length} travel routes from ${filePath}.`);
-                        resolve(TravelRouteEntity.save(travelRoutes)
+                        resolve(travelRouteRepository.save(travelRoutes)
                             .then(() => console.log(`Successfully saved!`)));
                     } catch (error) {
                         reject(error);

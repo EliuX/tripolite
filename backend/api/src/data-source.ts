@@ -1,5 +1,6 @@
 import {DataSource} from "typeorm";
 import {MongoConnectionOptions} from "typeorm/driver/mongodb/MongoConnectionOptions";
+import TravelRouteEntity from "./entities/travel-route.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mongodb',
@@ -9,3 +10,5 @@ export const AppDataSource = new DataSource({
     synchronize: false,
     logging: true,
 } as MongoConnectionOptions);
+
+export const travelRouteRepository = AppDataSource.getMongoRepository(TravelRouteEntity);
