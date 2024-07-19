@@ -52,7 +52,7 @@ export const subtitle = tv({
   },
 });
 
-export const price = tv({
+export const priceContainer = tv({
   base: "w-full md:w-1/2 text-default-2xl text-default-400",
   variants: {
     fullWidth: {

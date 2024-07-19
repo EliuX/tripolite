@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
 import {Accordion, AccordionItem} from "@nextui-org/accordion";
-import {price} from "@/components/primitives";
+import DisplayPrice from "@/components/display-price";
 
 export default function TravelChoiceRoutesDetails({travelRoutes}: TravelChoiceRoutesDetailsProps) {
     const [expandedTravelRoute, _] = useState([travelRoutes[0].uid]);
@@ -25,10 +25,9 @@ export default function TravelChoiceRoutesDetails({travelRoutes}: TravelChoiceRo
                         <div className="flex flex-col">
                             <span className="text-small text-primary">Company: {item.transportation}</span>
                             <span className="text-tiny text-default-400">Schedule: {item.schedule}</span>
-                            <p className={price({class: "text-tiny text-default-400"})}>Price: {item.price ?
-                                <strong className="text-primary">{item.price}</strong>
-                                : <span title={"You should call the each transporter company before it can be booked"}
-                                        className="text-warning cursor-help">{'TBD'}</span>}</p>
+                            <p className={"text-tiny text-default-400"}>
+                                Price: <DisplayPrice price={item.price} />
+                            </p>
                         </div>
                     </div>
                 </AccordionItem>

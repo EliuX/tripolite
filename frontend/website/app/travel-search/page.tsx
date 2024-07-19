@@ -21,6 +21,7 @@ import {useAsyncList} from "@react-stately/data";
 import TravelChoiceDetails from "@/components/travel-choice-details";
 import {Key} from "@react-types/shared";
 import {Link} from "@nextui-org/link";
+import {NO_PRICE_STR} from "@tripolite/common/constants";
 
 
 export default function SearchPage() {
@@ -149,7 +150,7 @@ export default function SearchPage() {
                                     <TableCell>{travelChoice.paths.length}</TableCell>
                                     <TableCell>
                                        <span className="text-tiny text-default-400">
-                                          {travelChoice.priceStr}
+                                          {travelChoice.price ? `$${travelChoice.price.toFixed(2)}` : NO_PRICE_STR}
                                         </span>
                                     </TableCell>
                                 </TableRow>

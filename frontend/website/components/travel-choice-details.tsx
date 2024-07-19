@@ -2,11 +2,12 @@ import React from "react";
 import {Card, CardBody, CardFooter, CardHeader} from "@nextui-org/card";
 import TravelChoice from "@tripolite/common/models/travel-choice";
 import {Divider} from "@nextui-org/divider";
-import {price, subtitle} from "@/components/primitives";
 import {CircularProgress} from "@nextui-org/progress";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
 import TravelChoiceRoutesDetails from "@/components/travel-choice-routes-details";
 import {Button} from "@nextui-org/button";
+import DisplayPrice from "@/components/display-price";
+import {subtitle} from "@/components/primitives";
 
 export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsProps) {
     return <Card className="max-w-[500px]">
@@ -17,6 +18,8 @@ export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsP
                 <Divider orientation={"vertical"}/>
                 {travelChoice.type && <CircularProgress
                     size="sm"
+                    title={`${travelChoice.satisfactionRatio * 100}% in ${travelChoice.type}`}
+                    aria-label={`${travelChoice.satisfactionRatio * 100}% in ${travelChoice.type}`}
                     value={travelChoice.satisfactionRatio * 100}
                     strokeWidth={2}
                     valueLabel={TRAVEL_METHODS_ICONS[travelChoice.type]({
@@ -29,10 +32,10 @@ export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsP
         </CardHeader>
         <Divider/>
         <CardBody className={"flex flex-col gap-4"}>
-            <p className={price({class: "cursor-help"})}>Price: {travelChoice.price ?
-                <strong className="text-primary">{travelChoice.priceStr}</strong>
-                : <span title={"You should call the each transporter company before it can be booked"}
-                        className="text-warning">{travelChoice.priceStr}</span>}</p>
+            <p>Price: <DisplayPrice
+                price={travelChoice.price}
+                noPriceTip={"Not all prices included in this choice where declared. You should call the each transporter company before its booked."} />
+            </p>
             <TravelChoiceRoutesDetails travelRoutes={travelChoice.paths}/>
         </CardBody>
         <Divider/>

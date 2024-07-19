@@ -37,10 +37,6 @@ export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearch
         return this.paths.reduce((t, r) => t + r.price, 0);
     }
 
-    get priceStr() {
-        return this.price ? `$${this.price.toFixed(2)}` : 'TBD';
-    }
-
     get satisfactionRatio(): number {
         if (!this.type) {
             return 0;
