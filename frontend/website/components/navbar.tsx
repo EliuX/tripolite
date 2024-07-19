@@ -1,4 +1,11 @@
-import {Navbar as NextUINavbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle,} from "@nextui-org/navbar";
+import {
+    Navbar as NextUINavbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    NavbarMenuToggle,
+    NavbarProps,
+} from "@nextui-org/navbar";
 import {Link} from "@nextui-org/link";
 import {link as linkStyles} from "@nextui-org/theme";
 import NextLink from "next/link";

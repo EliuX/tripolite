@@ -43,6 +43,8 @@ In order to address the [exercise instruction](instructions.md), several key con
   - To ensure scalability in finding all possible connections between two cities:
     - The search process will be handled server-side, while the presentation will be managed client-side.
     - MongoDB queries for the search will apply filter criteria wherever possible.
+  - The states of the booking are Pending, when the price is not determined and Confirmed when it is, but when the user
+    finishes the data of a Confirmed Booking, you can say this is *Completed*.
 
 - **NPM Script Execution**:
   - Every npm script executed in the root folder is intended to propagate across all active projects. For instance, `npm test` will run tests in all projects.
