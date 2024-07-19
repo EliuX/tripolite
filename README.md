@@ -29,18 +29,31 @@ This is how you should try the application:
 
 
 ## Considerations
-In order to solve the [excercise instruction](instructions.md) certain considerations had to be made:
-- The data will be loaded in the server's database using migrations. They have to be executed as part of the 
-installation process.
-- Due to the volume of data of the travel routes, they are loaded all at once from the server, without doing pagination
-- Having into account that it has to find all possible connections of them in between these two cities in a scalable way:
-  * The search should be done in server and the presentation in the client. 
-  * The MongoDB queries for the search should use a filter criteria whether possible.
-- Every npm script run in the root folder is meant to spread it to all active projects, e.g. `npm test` will execute
-  the tests in all projects.
-- It will use a graph traversal algorithm called [Depth-First Search (DFS)](https://www.youtube.com/watch?v=x6iO0ZH9h7Q) 
-  to find all paths from the origin city to the destination city. Instead of implementing this algorithm or adding an 
-  external library, its code was generated using ChatGPT 4 and tested to verifying it was well functioning. 
+### Considerations
+
+In order to address the [exercise instruction](instructions.md), several key considerations were made:
+
+- **Data Loading and Migrations**:
+  - The data will be populated in the server's database through migrations, which must be executed as part of the installation process.
+
+- **Data Volume and Pagination**:
+  - Given the large volume of travel route data, it will be loaded all at once from the server without pagination.
+
+- **Scalable Search Solution**:
+  - To ensure scalability in finding all possible connections between two cities:
+    - The search process will be handled server-side, while the presentation will be managed client-side.
+    - MongoDB queries for the search will apply filter criteria wherever possible.
+
+- **NPM Script Execution**:
+  - Every npm script executed in the root folder is intended to propagate across all active projects. For instance, `npm test` will run tests in all projects.
+
+- **Graph Traversal Algorithm**:
+  - A graph traversal algorithm, specifically [Depth-First Search (DFS)](https://www.youtube.com/watch?v=x6iO0ZH9h7Q), will be used to find all paths from the origin city to the destination city.
+  - There is potential for performance improvements by caching Travel Choices in the MongoDB database.
+
+- **User Interface Enhancements**:
+  - When users encounter *TBD* in the UI, a tooltip will provide additional context.
+  - For travel routes, the company providing the trip will have a contact link for user convenience.
 
 # Disclaimer
 The domain tripolite.com has not be claimed at the moment of the creation of this project.
