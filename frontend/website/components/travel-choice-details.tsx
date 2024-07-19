@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, CardBody, CardFooter, CardHeader} from "@nextui-org/card";
-import TravelChoice from "@tripolite/common/models/travel-choice";
+import {TravelChoiceModel} from "@tripolite/common/models/travel-choice-model";
 import {Divider} from "@nextui-org/divider";
 import {CircularProgress} from "@nextui-org/progress";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
@@ -9,7 +9,7 @@ import {Button} from "@nextui-org/button";
 import DisplayPrice from "@/components/display-price";
 import {subtitle} from "@/components/primitives";
 
-export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsProps) {
+export default function TravelChoiceDetails({travelChoice, handleBooking}: TravelChoiceDetailsProps) {
     return <Card className="max-w-[500px]">
         <CardHeader className="flex gap-3">
             <div className="flex flex-row">
@@ -34,18 +34,19 @@ export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsP
         <CardBody className={"flex flex-col gap-4"}>
             <p>Price: <DisplayPrice
                 price={travelChoice.price}
-                noPriceTip={"Not all prices included in this choice where declared. You should call the each transporter company before its booked."} />
+                noPriceTip={"Not all prices included in this choice where declared. You should call the each transporter company before its booked."}/>
             </p>
             <TravelChoiceRoutesDetails travelRoutes={travelChoice.paths}/>
         </CardBody>
         <Divider/>
         <CardFooter>
-            <Button color={'primary'}>Book now</Button>
+            <Button color={'primary'} onPress={() => handleBooking(travelChoice)}>Book now</Button>
         </CardFooter>
     </Card>
 }
 
 
 export interface TravelChoiceDetailsProps {
-    travelChoice: TravelChoice;
+    travelChoice: TravelChoiceModel;
+    handleBooking: (_: TravelChoiceModel) => void;
 }

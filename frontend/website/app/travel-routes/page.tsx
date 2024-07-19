@@ -5,7 +5,7 @@ import {Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectTravelRoutes} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
-import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
+import {setTravelRoutes} from "@/lib/features/travels/travelRoutesSlice";
 import {Simulate} from "react-dom/test-utils";
 import change = Simulate.change;
 

@@ -10,9 +10,9 @@ import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {isTravelSearchCriteriaValid, selectDestinationCities, selectOriginCities} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import {resetSearch, setSearchCriteria} from "@/lib/features/travelRoutes/travelsSearchSlice";
+import {resetSearch, setSearchCriteria} from "@/lib/features/travels/travelSearchSlice";
 import {useRouter} from "next/navigation";
-import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
+import {setTravelRoutes} from "@/lib/features/travels/travelRoutesSlice";
 
 export default function Home() {
     const [isLoadingTravelRoutes, setIsLoadingTravelRoutes] = useState(false);

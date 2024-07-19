@@ -1,15 +1,15 @@
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import TravelChoice, {TravelChoiceDto} from "@tripolite/common/models/travel-choice";
+import TravelChoice, {TravelChoiceModel} from "@tripolite/common/models/travel-choice-model";
 import Paginable, {DEFAULT_LIMIT, DEFAULT_OFFSET} from "@tripolite/common/paginable";
 import {travelRouteRepository} from "../data-source";
 
 class TravelChoiceService {
 
-    public async searchDtos(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoiceDto[]> {
+    public async searchDtos(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoice[]> {
         return this.search(criteria, paginable).then(r=>r.map(r=>r.toDto()));
     }
-    public async search(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoice[]> {
+    public async search(criteria: TravelChoiceSearchCriteria, paginable?: Partial<Paginable>): Promise<TravelChoiceModel[]> {
         const routes: TravelRoute[] = await travelRouteRepository.find()
             .then(result => result.map(e => e.toDto()));
 
@@ -27,7 +27,7 @@ class TravelChoiceService {
         return {startPosition, endPosition};
     }
 
-    private findAllPaths(routes: TravelRoute[], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
+    private findAllPaths(routes: TravelRoute[], criteria: TravelChoiceSearchCriteria): TravelChoiceModel[] {
         const graph = this.buildGraph(routes);
         const paths: TravelRoute[][] = [];
         const visited = new Set<string>();
@@ -70,7 +70,7 @@ class TravelChoiceService {
         return graph;
     }
 
-    private rankTravelChoices(travelChoices: TravelChoice[], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
+    private rankTravelChoices(travelChoices: TravelChoiceModel[], criteria: TravelChoiceSearchCriteria): TravelChoiceModel[] {
         travelChoices.sort((a, b) => {
             if (b.satisfactionRatio !== a.satisfactionRatio) {
                 return b.satisfactionRatio - a.satisfactionRatio;
@@ -82,8 +82,8 @@ class TravelChoiceService {
         return travelChoices;
     }
 
-    private convertToTravelChoices(paths: TravelRoute[][], criteria: TravelChoiceSearchCriteria): TravelChoice[] {
-        return paths.map(pathArray => new TravelChoice(pathArray, criteria));
+    private convertToTravelChoices(paths: TravelRoute[][], criteria: TravelChoiceSearchCriteria): TravelChoiceModel[] {
+        return paths.map(pathArray => new TravelChoiceModel(pathArray, criteria));
     }
 }
 

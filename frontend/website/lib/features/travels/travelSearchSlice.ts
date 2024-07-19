@@ -1,10 +1,10 @@
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TravelChoiceDto} from "@tripolite/common/models/travel-choice";
+import {TravelChoice} from "@tripolite/common/models/travel-choice-model";
 
 interface TravelRoutesSearchState {
     criteria: TravelChoiceSearchCriteria;
-    results: TravelChoiceDto[];
+    results: TravelChoice[];
 }
 
 const initialState: TravelRoutesSearchState = {
@@ -16,7 +16,7 @@ const initialState: TravelRoutesSearchState = {
     results: [],
 };
 
-const travelsSearchSlice = createSlice({
+const travelSearchSlice = createSlice({
     name: 'travelChoicesSearch',
     initialState,
     reducers: {
@@ -24,10 +24,10 @@ const travelsSearchSlice = createSlice({
             state.criteria = action.payload;
             state.results = [];
         },
-        setSearchResults(state, action: PayloadAction<TravelChoiceDto[]>) {
+        setSearchResults(state, action: PayloadAction<TravelChoice[]>) {
             state.results = action.payload;
         },
-        addNextPageResults(state, action: PayloadAction<TravelChoiceDto[]>) {
+        addNextPageResults(state, action: PayloadAction<TravelChoice[]>) {
             state.results.push(...action.payload);
         },
         resetSearch(state) {
@@ -41,5 +41,5 @@ export const {
     setSearchCriteria, setSearchResults,
     resetSearch,
     addNextPageResults
-} = travelsSearchSlice.actions;
-export default travelsSearchSlice.reducer;
+} = travelSearchSlice.actions;
+export default travelSearchSlice.reducer;

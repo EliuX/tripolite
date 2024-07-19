@@ -1,14 +1,14 @@
 import TravelRoute from "./travel-route";
 import TravelChoiceSearchCriteria from "./travel-choice-search-criteria";
 
-export interface TravelChoiceDto {
+export default interface TravelChoice {
     paths: TravelRoute[];
     criteria: TravelChoiceSearchCriteria;
 }
 
-export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearchCriteria {
+export  class TravelChoiceModel implements TravelChoice, TravelChoiceSearchCriteria {
     static counter = 0;
-    id = ++TravelChoice.counter;
+    id = ++TravelChoiceModel.counter;
 
     cities: string[];
 
@@ -47,7 +47,7 @@ export default class TravelChoice implements TravelChoiceDto, TravelChoiceSearch
         return Math.round(ratio * 1000) / 1000;
     }
 
-    toDto(): TravelChoiceDto {
+    toDto(): TravelChoice {
         return {
             criteria: this.criteria,
             paths: this.paths,

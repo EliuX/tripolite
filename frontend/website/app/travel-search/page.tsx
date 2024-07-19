@@ -9,9 +9,9 @@ import {
     selectTravelSearchCriteria,
 } from "@/lib/selectors";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
-import TravelChoice, {TravelChoiceDto} from "@tripolite/common/models/travel-choice";
+import TravelChoice, {TravelChoiceModel} from "@tripolite/common/models/travel-choice-model";
 import {Spinner} from "@nextui-org/spinner";
-import {addNextPageResults} from "@/lib/features/travelRoutes/travelsSearchSlice";
+import {addNextPageResults, setSearchCriteria} from "@/lib/features/travels/travelSearchSlice";
 import {useRouter} from "next/navigation";
 import {DEFAULT_LIMIT, DEFAULT_OFFSET} from "@tripolite/common/paginable";
 import {Selection, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/table";
@@ -22,6 +22,7 @@ import TravelChoiceDetails from "@/components/travel-choice-details";
 import {Key} from "@react-types/shared";
 import {Link} from "@nextui-org/link";
 import {NO_PRICE_STR} from "@tripolite/common/constants";
+import {bookTravel} from "@/lib/features/travels/travelBookingSlice";
 
 
 export default function SearchPage() {
@@ -29,7 +30,7 @@ export default function SearchPage() {
     const [statusMessage, setStatusMessage]
         = useState('There are no available travel choices for your search');
     const [hasMore, setHasMore] = useState(false);
-    const [selectedTravelChoice, selectTravelChoice] = useState<TravelChoice | undefined>();
+    const [selectedTravelChoice, selectTravelChoice] = useState<TravelChoiceModel | undefined>();
 
     const searchCriteria = useAppSelector(selectTravelSearchCriteria);
     const isSearchCriteriaValid = useAppSelector(isTravelSearchCriteriaValid);
@@ -44,7 +45,12 @@ export default function SearchPage() {
         });
     };
 
-    const list = useAsyncList<TravelChoiceDto>({
+    const handleBooking = (travelChoice: TravelChoiceModel) => {
+        dispatch(bookTravel(travelChoice));
+        router.push('/travel-bookings');
+    };
+
+    const list = useAsyncList<TravelChoice>({
         async load({signal, cursor}) {
             if(searchCriteria.destinationCity === searchCriteria.originCity) {
                 setStatusMessage('Travels inside the same city are not provided');
@@ -137,7 +143,7 @@ export default function SearchPage() {
                             emptyContent={statusMessage}
                             loadingContent={<Spinner color="white"/>}
                         >
-                            {searchResults.map((travelChoice: TravelChoice, index) => (
+                            {searchResults.map((travelChoice: TravelChoiceModel, index) => (
                                 <TableRow key={index}>
                                     <TableCell>
                                         <div className={"flex flex-wrap whitespace-break-spaces justify-between"}>
@@ -157,7 +163,7 @@ export default function SearchPage() {
                             ))}
                         </TableBody>
                     </Table>
-                    {selectedTravelChoice && <TravelChoiceDetails travelChoice={selectedTravelChoice}/>}
+                    {selectedTravelChoice && <TravelChoiceDetails travelChoice={selectedTravelChoice} handleBooking={handleBooking}/>}
                 </div>
               : <Button onPress={router.back}>Go back</Button>
             }

@@ -43,6 +43,8 @@ In order to address the [exercise instruction](instructions.md), several key con
   - To ensure scalability in finding all possible connections between two cities:
     - The search process will be handled server-side, while the presentation will be managed client-side.
     - MongoDB queries for the search will apply filter criteria wherever possible.
+  - The user's data will not be persisted: In a real world scenario data like bookings will be persisted and assigned
+    to the active user, but, there is no authentication mechanism.
 
 - **NPM Script Execution**:
   - Every npm script executed in the root folder is intended to propagate across all active projects. For instance, `npm test` will run tests in all projects.
