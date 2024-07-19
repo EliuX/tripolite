@@ -5,16 +5,17 @@ import TravelRoute from "@tripolite/common/models/travel-route";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
 import {Accordion, AccordionItem} from "@nextui-org/accordion";
 import DisplayPrice from "@/components/display-price";
+import {describeConnections} from "@tripolite/common/shared";
 
 export default function TravelChoiceRoutesDetails({travelRoutes}: TravelChoiceRoutesDetailsProps) {
     const [expandedTravelRoute, _] = useState([travelRoutes[0].uid]);
 
-    return <div className="w-full max-w-[260px]">
+    return <div className="w-full">
         <Accordion isCompact
                    defaultExpandedKeys={expandedTravelRoute}
                    variant="shadow"
                    title="The routes your trip will follow"
-                   className={"max-w-xs max-h-[280px] overflow-scroll"}
+                   className={"max-w-xs max-h-[285px] overflow-scroll"}
                    items={travelRoutes}>
             {travelRoutes.map((item, index) => (
                 <AccordionItem key={item.uid}
@@ -35,7 +36,7 @@ export default function TravelChoiceRoutesDetails({travelRoutes}: TravelChoiceRo
                 </AccordionItem>
             ))}
         </Accordion>
-        <p className={"text-small text-gray-300"}>{travelRoutes.length > 1 ? `You will make ${travelRoutes.length - 1} stops`: `It is a direct ${travelRoutes[0].type === 'Plane' ? 'flight' : 'trip'}!`}</p>
+        <p className={"text-small text-gray-300"}>{describeConnections(travelRoutes.length, travelRoutes[0].type)}</p>
     </div>
 }
 

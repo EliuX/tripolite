@@ -21,16 +21,16 @@ import {useAsyncList} from "@react-stately/data";
 import TravelChoiceDetails from "@/components/travel-choice-details";
 import {Key} from "@react-types/shared";
 import {Link} from "@nextui-org/link";
-import {NO_PRICE_STR} from "@tripolite/common/constants";
-import {setNewActiveBooking} from "@/lib/features/travels/travelBookingSlice";
+import {NO_PRICE_STR} from "@tripolite/common/shared";
+import {pushNewActiveBooking} from "@/lib/features/travels/travelBookingSlice";
 
 
 export default function SearchPage() {
     const [isLoadingResults, showLoadingResults] = useState(false);
     const [statusMessage, setStatusMessage]
-        = useState('There are no available travel choices for your search');
+        = useState('The travel choices for your search');
     const [hasMore, setHasMore] = useState(false);
-    const [selectedTravelChoice, selectTravelChoice] = useState<TravelChoice | undefined>();
+    const [selectedTravelChoice, selectTravelChoice] = useState<TravelChoiceModel | undefined>();
 
     const searchCriteria = useAppSelector(selectTravelSearchCriteria);
     const isSearchCriteriaValid = useAppSelector(isTravelSearchCriteriaValid);
@@ -47,7 +47,7 @@ export default function SearchPage() {
 
     const handleBooking = async (travelChoice: TravelChoice) => {
         const newBooking = await bookTravelChoice({travelChoice});
-        dispatch(setNewActiveBooking(newBooking));
+        dispatch(pushNewActiveBooking(newBooking));
         router.push('/travel-bookings/details');
     };
 
@@ -111,9 +111,9 @@ export default function SearchPage() {
                 : (searchResults.length) ?
                     <div className="flex flex-row gap-4">
                         <Table
-                            isHeaderSticky
+                            hideHeader
                             isStriped
-                            color={"secondary"}
+                            color={"default"}
                             aria-label={statusMessage}
                             baseRef={scrollerRef}
                             selectionMode="single"
@@ -154,7 +154,7 @@ export default function SearchPage() {
                                                         className={'text-small align-middle'}>({`${Math.floor(travelChoice.satisfactionRatio * 100)}% in ${searchCriteria.type}`})</span>}
                                             </div>
                                         </TableCell>
-                                        <TableCell>{travelChoice.paths.length}</TableCell>
+                                        <TableCell className={'text-center'}>{travelChoice.paths.length > 1 ? `${travelChoice.paths.length - 1} stops` : 'direct'}</TableCell>
                                         <TableCell>
                                        <span className="text-tiny text-default-400">
                                           {travelChoice.price ? `$${travelChoice.price.toFixed(2)}` : NO_PRICE_STR}

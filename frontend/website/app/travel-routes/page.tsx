@@ -6,7 +6,6 @@ import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import {selectTravelRoutes} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import {setTravelRoutes} from "@/lib/features/travels/travelRoutesSlice";
-import {Simulate} from "react-dom/test-utils";
 
 
 export default function TravelRoutesPage() {

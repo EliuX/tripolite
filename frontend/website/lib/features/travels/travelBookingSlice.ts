@@ -15,9 +15,12 @@ const travelBookingsSlice = createSlice({
     name: 'travelBookings',
     initialState,
     reducers: {
-        setNewActiveBooking(state, action: PayloadAction<TravelBooking>) {
+        pushNewActiveBooking(state, action: PayloadAction<TravelBooking>) {
             state.activeBookingId = action.payload.uid;
             state.bookings.push(action.payload);
+        },
+        setActiveBookingId(state, action: PayloadAction<string>) {
+            state.activeBookingId = action.payload;
         },
         setTravelBookings(state, action: PayloadAction<TravelBooking[]>) {
             state.bookings = action.payload;
@@ -26,5 +29,5 @@ const travelBookingsSlice = createSlice({
 });
 
 
-export const {setNewActiveBooking, setTravelBookings} = travelBookingsSlice.actions;
+export const {pushNewActiveBooking, setTravelBookings, setActiveBookingId} = travelBookingsSlice.actions;
 export default travelBookingsSlice.reducer;

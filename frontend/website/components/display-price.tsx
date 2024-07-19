@@ -1,7 +1,6 @@
 import React from "react";
-import {NO_PRICE_STR} from "@tripolite/common/constants";
+import {NO_PRICE_STR} from "@tripolite/common/shared";
 import {priceContainer} from "@/components/primitives";
-import TravelChoiceModel from "@tripolite/common/models/travel-choice";
 import {Tooltip} from "@nextui-org/tooltip";
 
 export default function DisplayPrice({
@@ -14,6 +13,7 @@ export default function DisplayPrice({
         </Tooltip>
 }
 
-export type DisplayPriceProps = Pick<TravelChoiceModel, "price"> & {
+export type DisplayPriceProps = {
+    price?: number,
     noPriceTip?: string
 };
