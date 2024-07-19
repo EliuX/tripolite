@@ -1,6 +1,7 @@
 import {RootState} from './store';
 import {createSelector} from "reselect";
-import TravelChoiceModel from "@tripolite/common/models/travel-choice-model";
+import {TravelChoiceModel} from "@tripolite/common/models/travel-choice-model";
+import {TravelBookingModel} from "@tripolite/common/models/travel-booking";
 
 export const selectTravelRoutes = (state: RootState) => state.travelRoutes.all;
 
@@ -20,4 +21,5 @@ export const isTravelSearchCriteriaValid = createSelector(selectTravelSearchCrit
 export const selectTravelChoiceSearchResults = createSelector(selectTravelChoicesSearch, (search) =>
     search.results.map(dto => new TravelChoiceModel(dto.paths, dto.criteria)));
 
-export const selectTravelBookings = (state: RootState) => state.travelBookings.bookings;
+export const selectTravelBookings = (state: RootState) => state.travelBookings.bookings
+    .map(dto => new TravelBookingModel(new TravelChoiceModel(dto.travelChoice.paths, dto.travelChoice.criteria)));

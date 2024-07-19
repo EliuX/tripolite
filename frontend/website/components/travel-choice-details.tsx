@@ -39,14 +39,14 @@ export default function TravelChoiceDetails({travelChoice, handleBooking}: Trave
             <TravelChoiceRoutesDetails travelRoutes={travelChoice.paths}/>
         </CardBody>
         <Divider/>
-        <CardFooter>
+        {handleBooking && <CardFooter>
             <Button color={'primary'} onPress={() => handleBooking(travelChoice)}>Book now</Button>
-        </CardFooter>
+        </CardFooter>}
     </Card>
 }
 
 
 export interface TravelChoiceDetailsProps {
     travelChoice: TravelChoiceModel;
-    handleBooking: (_: TravelChoiceModel) => void;
+    handleBooking?: (_: TravelChoiceModel) => void;
 }

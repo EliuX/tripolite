@@ -1,3 +1,5 @@
+'use client';
+
 import React, {useState} from "react";
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";

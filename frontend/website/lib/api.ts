@@ -1,7 +1,7 @@
 import {siteConfig} from "@/config/site";
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import {TravelChoice} from "@tripolite/common/models/travel-choice-model";
+import TravelChoice from "@tripolite/common/models/travel-choice-model";
 import TravelBooking from "@tripolite/common/models/travel-booking";
 
 
