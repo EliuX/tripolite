@@ -24,7 +24,7 @@ export default class TravelRouteEntity extends BaseEntity implements TravelRoute
     @Column()
     schedule!: string;
 
-    constructor(data?: Partial<TravelRoute | TravelRouteEntity>) {
+    constructor(data?: Partial<TravelRouteEntity>) {
         super();
 
         if (data) {
