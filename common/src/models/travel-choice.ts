@@ -6,15 +6,26 @@ export default interface TravelChoice {
     criteria: TravelChoiceSearchCriteria;
 }
 
-export  class TravelChoiceModel implements TravelChoice, TravelChoiceSearchCriteria {
+export class TravelChoiceModel implements TravelChoice, TravelChoiceSearchCriteria {
     static counter = 0;
     id = ++TravelChoiceModel.counter;
 
     cities: string[];
+    public criteria: TravelChoiceSearchCriteria;
 
-    constructor(public paths: TravelRoute[], public criteria: TravelChoiceSearchCriteria) {
+
+    constructor(public paths: TravelRoute[], criteria?: TravelChoiceSearchCriteria) {
+        if(criteria) {
+            this.criteria = criteria;
+        } else {
+            this.criteria = {
+                originCity: this.paths[0]?.originCity,
+                destinationCity: this.paths[0]?.destinationCity,
+            }
+        }
+
         this.cities = this.paths.map((route) => route.originCity);
-        this.cities.push(criteria.destinationCity);
+        this.cities.push(this.criteria.destinationCity);
     }
 
     get originCity() {

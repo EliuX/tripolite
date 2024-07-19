@@ -1,6 +1,6 @@
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TravelChoice} from "@tripolite/common/models/travel-choice-model";
+import {TravelChoice} from "@tripolite/common/models/travel-choice";
 
 interface TravelRoutesSearchState {
     criteria: TravelChoiceSearchCriteria;

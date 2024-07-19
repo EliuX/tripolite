@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, CardBody, CardFooter, CardHeader} from "@nextui-org/card";
-import {TravelChoiceModel} from "@tripolite/common/models/travel-choice-model";
+import {TravelChoice} from "@tripolite/common/models/travel-choice";
 import {Divider} from "@nextui-org/divider";
 import {CircularProgress} from "@nextui-org/progress";
 import TRAVEL_METHODS_ICONS from "@/types/travel-method-icons";
@@ -47,6 +47,6 @@ export default function TravelChoiceDetails({travelChoice, handleBooking}: Trave
 
 
 export interface TravelChoiceDetailsProps {
-    travelChoice: TravelChoiceModel;
-    handleBooking?: (_: TravelChoiceModel) => void;
+    travelChoice: TravelChoice;
+    handleBooking?: (_: TravelChoice) => void;
 }

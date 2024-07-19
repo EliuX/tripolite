@@ -2,16 +2,16 @@
 
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {searchTravelsChoices} from "@/lib/api";
+import {bookTravelChoice, searchTravelsChoices} from "@/lib/api";
 import {
     isTravelSearchCriteriaValid,
     selectTravelChoiceSearchResults,
     selectTravelSearchCriteria,
 } from "@/lib/selectors";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
-import TravelChoice, {TravelChoiceModel} from "@tripolite/common/models/travel-choice-model";
+import TravelChoice, {TravelChoiceModel} from "@tripolite/common/models/travel-choice";
 import {Spinner} from "@nextui-org/spinner";
-import {addNextPageResults, setSearchCriteria} from "@/lib/features/travels/travelSearchSlice";
+import {addNextPageResults} from "@/lib/features/travels/travelSearchSlice";
 import {useRouter} from "next/navigation";
 import {DEFAULT_LIMIT, DEFAULT_OFFSET} from "@tripolite/common/paginable";
 import {Selection, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/table";
@@ -22,7 +22,7 @@ import TravelChoiceDetails from "@/components/travel-choice-details";
 import {Key} from "@react-types/shared";
 import {Link} from "@nextui-org/link";
 import {NO_PRICE_STR} from "@tripolite/common/constants";
-import {bookTravel} from "@/lib/features/travels/travelBookingSlice";
+import {setNewActiveBooking} from "@/lib/features/travels/travelBookingSlice";
 
 
 export default function SearchPage() {
@@ -30,7 +30,7 @@ export default function SearchPage() {
     const [statusMessage, setStatusMessage]
         = useState('There are no available travel choices for your search');
     const [hasMore, setHasMore] = useState(false);
-    const [selectedTravelChoice, selectTravelChoice] = useState<TravelChoiceModel | undefined>();
+    const [selectedTravelChoice, selectTravelChoice] = useState<TravelChoice | undefined>();
 
     const searchCriteria = useAppSelector(selectTravelSearchCriteria);
     const isSearchCriteriaValid = useAppSelector(isTravelSearchCriteriaValid);
@@ -45,14 +45,15 @@ export default function SearchPage() {
         });
     };
 
-    const handleBooking = (travelChoice: TravelChoiceModel) => {
-        dispatch(bookTravel(travelChoice));
-        router.push('/travel-bookings');
+    const handleBooking = async (travelChoice: TravelChoice) => {
+        const newBooking = await bookTravelChoice({travelChoice});
+        dispatch(setNewActiveBooking(newBooking));
+        router.push('/travel-bookings/details');
     };
 
     const list = useAsyncList<TravelChoice>({
         async load({signal, cursor}) {
-            if(searchCriteria.destinationCity === searchCriteria.originCity) {
+            if (searchCriteria.destinationCity === searchCriteria.originCity) {
                 setStatusMessage('Travels inside the same city are not provided');
 
                 return {
@@ -108,64 +109,65 @@ export default function SearchPage() {
             {isLoadingResults
                 ? <Spinner label="Searching..."/>
                 : (searchResults.length) ?
-                <div className="flex flex-row gap-4">
-                    <Table
-                        isHeaderSticky
-                        isStriped
-                        color={"secondary"}
-                        aria-label={statusMessage}
-                        baseRef={scrollerRef}
-                        selectionMode="single"
-                        onSelectionChange={changeSelectedTravelChoice}
-                        bottomContent={
-                            hasMore && !isLoadingResults ? (
-                                <div className="flex w-full justify-center">
-                                    <Button isDisabled={isLoadingResults} variant="flat" onPress={list.loadMore}>
-                                        {list.isLoading && <Spinner ref={loaderRef} color="white" size="sm"/>}
-                                        Load More
-                                    </Button>
-                                </div>
-                            ) : null
-                        }
-                        classNames={{
-                            base: "max-h-[520px] overflow-scroll flex-2",
-                            table: "min-h-[450px]",
-                        }}
-                    >
-                        <TableHeader>
-                            <TableColumn key="description">Description</TableColumn>
-                            <TableColumn key="connections">Number of connection</TableColumn>
-                            <TableColumn key="price">Price</TableColumn>
-                        </TableHeader>
-                        <TableBody
-                            isLoading={isLoadingResults}
-                            items={list.items}
-                            emptyContent={statusMessage}
-                            loadingContent={<Spinner color="white"/>}
+                    <div className="flex flex-row gap-4">
+                        <Table
+                            isHeaderSticky
+                            isStriped
+                            color={"secondary"}
+                            aria-label={statusMessage}
+                            baseRef={scrollerRef}
+                            selectionMode="single"
+                            onSelectionChange={changeSelectedTravelChoice}
+                            bottomContent={
+                                hasMore && !isLoadingResults ? (
+                                    <div className="flex w-full justify-center">
+                                        <Button isDisabled={isLoadingResults} variant="flat" onPress={list.loadMore}>
+                                            {list.isLoading && <Spinner ref={loaderRef} color="white" size="sm"/>}
+                                            Load More
+                                        </Button>
+                                    </div>
+                                ) : null
+                            }
+                            classNames={{
+                                base: "max-h-[520px] overflow-scroll flex-2",
+                                table: "min-h-[450px]",
+                            }}
                         >
-                            {searchResults.map((travelChoice: TravelChoiceModel, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>
-                                        <div className={"flex flex-wrap whitespace-break-spaces justify-between"}>
-                                            <span>{travelChoice.cities.join(" → ")}</span>
-                                            {searchCriteria.type &&
-                                                <span
-                                                    className={'text-small align-middle'}>({`${Math.floor(travelChoice.satisfactionRatio * 100)}% in ${searchCriteria.type}`})</span>}
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>{travelChoice.paths.length}</TableCell>
-                                    <TableCell>
+                            <TableHeader>
+                                <TableColumn key="description">Description</TableColumn>
+                                <TableColumn key="connections">Number of connection</TableColumn>
+                                <TableColumn key="price">Price</TableColumn>
+                            </TableHeader>
+                            <TableBody
+                                isLoading={isLoadingResults}
+                                items={list.items}
+                                emptyContent={statusMessage}
+                                loadingContent={<Spinner color="white"/>}
+                            >
+                                {searchResults.map((travelChoice: TravelChoiceModel, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>
+                                            <div className={"flex flex-wrap whitespace-break-spaces justify-between"}>
+                                                <span>{travelChoice.cities.join(" → ")}</span>
+                                                {searchCriteria.type &&
+                                                    <span
+                                                        className={'text-small align-middle'}>({`${Math.floor(travelChoice.satisfactionRatio * 100)}% in ${searchCriteria.type}`})</span>}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>{travelChoice.paths.length}</TableCell>
+                                        <TableCell>
                                        <span className="text-tiny text-default-400">
                                           {travelChoice.price ? `$${travelChoice.price.toFixed(2)}` : NO_PRICE_STR}
                                         </span>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                    {selectedTravelChoice && <TravelChoiceDetails travelChoice={selectedTravelChoice} handleBooking={handleBooking}/>}
-                </div>
-              : <Button onPress={router.back}>Go back</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                        {selectedTravelChoice &&
+                            <TravelChoiceDetails travelChoice={selectedTravelChoice} handleBooking={handleBooking}/>}
+                    </div>
+                    : <Button onPress={router.back}>Go back</Button>
             }
         </>
     );

@@ -1,6 +1,6 @@
 import {BaseEntity} from "./base.entity";
 import TravelBooking from "@tripolite/common/models/travel-booking";
-import {Column, Entity, Unique} from "typeorm";
+import {Column, Entity} from "typeorm";
 import TravelChoice from "@tripolite/common/models/travel-choice";
 import PersonalInfo from "@tripolite/common/models/personal-info";
 import PaymentDetails from "@tripolite/common/models/payment-details";
@@ -10,7 +10,6 @@ import PersonalInfoEntity from "./personal-info.entity";
 import {ObjectId} from "mongodb";
 
 @Entity({name: 'travel-booking'})
-@Unique(["travelChoice"])
 export default class TravelBookingEntity extends BaseEntity implements TravelBooking {
 
     @Column(type => TravelChoiceEntity)
@@ -25,7 +24,7 @@ export default class TravelBookingEntity extends BaseEntity implements TravelBoo
     constructor(data?: Partial<TravelBooking>) {
         super();
 
-        if(data) {
+        if (data) {
             if (data["_id"]) {
                 this._id = data["_id"];
             } else if (data.uid) {

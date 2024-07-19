@@ -12,7 +12,7 @@ export const siteConfig = {
         },
         {
             label: "Bookings",
-            href: "/bookings",
+            href: "/travel-bookings",
         },
     ],
     links: {

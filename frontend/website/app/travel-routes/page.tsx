@@ -7,7 +7,6 @@ import {selectTravelRoutes} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import {setTravelRoutes} from "@/lib/features/travels/travelRoutesSlice";
 import {Simulate} from "react-dom/test-utils";
-import change = Simulate.change;
 
 
 export default function TravelRoutesPage() {
@@ -23,7 +22,7 @@ export default function TravelRoutesPage() {
         loadTravelRoutes().then(routes => {
             dispatch(setTravelRoutes(routes));
         })
-            .catch(()=> changeDefaultMessage("There was an error loading the travel routes. Please try again later."))
+            .catch(() => changeDefaultMessage("There was an error loading the travel routes. Please try again later."))
             .finally(() => setIsLoadingTravelRoutes(false));
     }, [dispatch]);
 
@@ -48,8 +47,8 @@ export default function TravelRoutesPage() {
                 <TableBody
                     emptyContent={<p>{defaultMessage}</p>}
                     aria-label={"Travel routes data"}
-                    isLoading={isLoadingTravelRoutes && !travelRoutes?.length}
-                    loadingContent={<Spinner label="Loading..."/>}>
+                    isLoading={isLoadingTravelRoutes && travelRoutes?.length > 0}
+                    loadingContent={<Spinner label="Loading routes..."/>}>
                     {travelRoutes.map((row) =>
                         <TableRow key={row.uid}>
                             <TableCell>{row.originCity}</TableCell>

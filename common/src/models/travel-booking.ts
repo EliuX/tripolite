@@ -1,7 +1,7 @@
-import {TravelChoiceModel} from "./travel-choice-model";
+import TravelChoice, {TravelChoiceModel} from "./travel-choice";
 import PersonalInfo from "./personal-info";
 import PaymentDetails from "./payment-details";
-import TravelChoice from "./travel-choice-model";
+import {TravelBookings} from "../routes";
 
 export enum TravelBookingStatus {
     Pending = 0,
@@ -14,6 +14,8 @@ export default interface TravelBooking {
     personalInfo?: PersonalInfo;
     paymentDetails?: PaymentDetails;
 }
+
+export type NewTravelBooking = Pick<TravelBooking, 'travelChoice'> | TravelBookings;
 
 export class TravelBookingModel implements TravelBooking {
 

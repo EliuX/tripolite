@@ -1,8 +1,8 @@
 import {siteConfig} from "@/config/site";
 import TravelRoute from "@tripolite/common/models/travel-route";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import TravelChoice from "@tripolite/common/models/travel-choice-model";
-import TravelBooking from "@tripolite/common/models/travel-booking";
+import TravelChoice from "@tripolite/common/models/travel-choice";
+import TravelBooking, {NewTravelBooking} from "@tripolite/common/models/travel-booking";
 
 
 export const loadTravelRoutes = async () => {
@@ -20,7 +20,7 @@ export const searchTravelsChoices = async (criteria: TravelChoiceSearchCriteria,
 };
 
 
-export const submitBookingForm = async (travelBooking: TravelBooking) => {
+export const bookTravelChoice = async (travelBooking: NewTravelBooking) => {
     return await fetch(siteConfig.apiRoutes.travelBookings.baseUrl, {
         method: 'POST',
         headers: {
@@ -29,3 +29,8 @@ export const submitBookingForm = async (travelBooking: TravelBooking) => {
         body: JSON.stringify(travelBooking)
     }).then(response => response.json() as Promise<TravelBooking>)
 }
+
+export const loadTravelBookings = async () => {
+    return await fetch(siteConfig.apiRoutes.travelBookings.baseUrl)
+        .then(response => response.json() as Promise<TravelBooking[]>);
+};

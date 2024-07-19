@@ -11,14 +11,14 @@ const travelChoicesRoutes = new TravelChoices();
 router.get(travelChoicesRoutes.search, async (req: Request<TravelChoiceSearchCriteria, Partial<Paginable>>, res: Response) => {
     const searchCriteria = req.query as TravelChoiceSearchCriteria;
 
-    if(searchCriteria?.originCity && searchCriteria.destinationCity) {
+    if (searchCriteria?.originCity && searchCriteria.destinationCity) {
         const pagination = req.query as Partial<Paginable>;
 
-        const result = await travelChoiceService.searchDtos(searchCriteria, pagination);
+        const result = await travelChoiceService.search(searchCriteria, pagination);
 
-        res.send(result);
+        res.send(result.map(r => r.toDto()));
     } else {
-        res.status(400).send({ message: "Invalid search criteria"});
+        res.status(400).send({message: "Invalid search criteria"});
     }
 });
 
