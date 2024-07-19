@@ -1,24 +1,23 @@
 import {Request, Response, Router} from "express";
 import {TravelBookings} from "@tripolite/common/routes";
 import {travelBookingRepository} from "../data-source";
-import {NewTravelBooking} from "@tripolite/common/models/travel-booking";
+import TravelBooking, {NewTravelBooking} from "@tripolite/common/models/travel-booking";
 import TravelBookingEntity from "../entities/travel-booking.entity";
 
 const router: Router = Router();
 const travelBookingRoutes = new TravelBookings();
 
-router.post(travelBookingRoutes.baseUrl, async (req: Request<NewTravelBooking>, res: Response) => {
-    const {travelChoice} = req.body;
+router.put(travelBookingRoutes.baseUrl, async (req: Request<NewTravelBooking | TravelBooking>, res: Response) => {
+    const data = req.body as Partial<TravelBooking>;
+    const entity = new TravelBookingEntity(data);
 
-    const count = await travelBookingRepository.countBy({travelChoice});
-
-    if (count > 0) {
-        return res.status(409)
-            .send({message: "This booking already exists"});
-    } else {
-        const created = await travelBookingRepository.save(new TravelBookingEntity({travelChoice}));
-        res.status(201).send(created.toDto());
-    }
+    await travelBookingRepository.save(entity)
+        .then(result=> {
+            res.status(data.uid ? 200 : 201).send(result.toDto());
+        })
+        .catch((_)=> {
+            res.status(409);
+        });
 });
 
 router.get(travelBookingRoutes.baseUrl, async (req: Request, res: Response) => {

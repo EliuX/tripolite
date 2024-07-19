@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {bookTravelChoice, searchTravelsChoices} from "@/lib/api";
+import {createOrUpdateTravelBooking, searchTravelsChoices} from "@/lib/api";
 import {
     isTravelSearchCriteriaValid,
     selectTravelChoiceSearchResults,
@@ -46,7 +46,7 @@ export default function SearchPage() {
     };
 
     const handleBooking = async (travelChoice: TravelChoice) => {
-        const newBooking = await bookTravelChoice({travelChoice});
+        const newBooking = await createOrUpdateTravelBooking({travelChoice});
         dispatch(pushNewActiveBooking(newBooking));
         router.push('/travel-bookings/details');
     };

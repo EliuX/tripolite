@@ -9,10 +9,12 @@ export class InitTravelRoutes1719892503885 implements MigrationInterface {
     }
 
     public async down(): Promise<void> {
-        const travelRoutes = await travelRouteRepository.find();
+        const travelRoutesCount = await travelRouteRepository.countDocuments();
 
-        await travelRouteRepository.remove(travelRoutes);
+        if(travelRoutesCount > 0) {
+            await travelRouteRepository.clear();
+        }
 
-        console.log(`Removed ${travelRoutes.length} travel routes`);
+        console.log(`Removed ${travelRoutesCount} travel routes`);
     }
 }

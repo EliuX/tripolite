@@ -11,6 +11,7 @@ import DisplayPrice from "@/components/display-price";
 import {TravelBookingStatus} from "@tripolite/common/models/travel-booking";
 import {Key} from "@react-types/shared";
 import {useRouter} from "next/navigation";
+import {isBookingCompleted} from "@tripolite/common/shared";
 
 export default function BookingsPage() {
     const [isLoadingTravelBookings, setIsLoadingTravelBookings] = useState(false);
@@ -74,7 +75,7 @@ export default function BookingsPage() {
                                 <DisplayPrice price={row.travelChoice.price}></DisplayPrice>
                             </TableCell>
                             <TableCell>{row.status === TravelBookingStatus.Confirmed ?
-                                <span className={'text-pretty text-success-500'}>Confirmed</span> :
+                                <span className={'text-pretty text-success-500'}>Confirmed {isBookingCompleted(row) && "✓"}</span> :
                                 <span className={'text-pretty text-warning-500'}>Still pending</span>
                             }</TableCell>
                         </TableRow>

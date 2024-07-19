@@ -20,9 +20,9 @@ export const searchTravelsChoices = async (criteria: TravelChoiceSearchCriteria,
 };
 
 
-export const bookTravelChoice = async (travelBooking: NewTravelBooking) => {
+export const createOrUpdateTravelBooking = async (travelBooking: NewTravelBooking | TravelBooking) => {
     return await fetch(siteConfig.apiRoutes.travelBookings.baseUrl, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },

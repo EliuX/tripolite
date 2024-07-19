@@ -7,7 +7,11 @@ import TravelBookingEntity from "../../src/entities/travel-booking.entity";
 import TravelBooking from "../../../../common/src/models/travel-booking";
 
 describe("Travel Routes API", () => {
-    describe("POST /", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    describe("PUT /", () => {
         const creationPayload: Partial<TravelBooking> = {
             travelChoice: {
                 paths: [{
@@ -35,37 +39,15 @@ describe("Travel Routes API", () => {
             },
         };
 
-        it("should return a 409 if the booking already exists", (done) => {
+        it("should create new booking", (done) => {
             //Given
-            const countBySpy = jest.spyOn(travelBookingRepository, "countBy").mockResolvedValue(1);
+            const creationEntity = new TravelBookingEntity(creationPayload);
+            const saveSpy = jest.spyOn(travelBookingRepository, "save")
+                .mockResolvedValue(creationEntity);
 
             // When + then
             request(app)
-                .post(apiRoutes.travelBookings.baseUrl)
-                .send(creationPayload)
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(409)
-                .end(function (err, res) {
-                    if (err) return done(err);
-
-                    expect(countBySpy).toHaveBeenNthCalledWith(1, creationPayload);
-
-                    return done();
-                });
-        });
-
-        it("should create a new booking if there is no existing booking", (done) => {
-            //Given
-            jest.spyOn(travelBookingRepository, "countBy").mockResolvedValue(0);
-            jest.spyOn(travelBookingRepository, "save").mockResolvedValue(new TravelBookingEntity({
-                uid: '668e1a0c9b4440df56ca4c23',
-                ...creationPayload
-            }));
-
-            // When + then
-            request(app)
-                .post(apiRoutes.travelBookings.baseUrl)
+                .put(apiRoutes.travelBookings.baseUrl)
                 .send(creationPayload)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -76,7 +58,30 @@ describe("Travel Routes API", () => {
                     expect(res.body).not.toBeUndefined();
                     expect(res.body).not.toBeNull();
 
-                    expect(res.body.travelChoice).toMatchObject(creationPayload.travelChoice);
+                    expect(saveSpy).toHaveBeenCalledTimes(1);
+
+                    return done();
+                });
+        });
+
+        it("should return updated booking", (done) => {
+            //Given
+            const updatePayload = {...creationPayload, uid: '668e1a0c9b4440df56ca4c66'};
+            const updateEntity = new TravelBookingEntity(updatePayload);
+            const saveSpy = jest.spyOn(travelBookingRepository, "save")
+                .mockResolvedValue(updateEntity);
+
+            // When + then
+            request(app)
+                .put(apiRoutes.travelBookings.baseUrl)
+                .send(updatePayload)
+                .set('Accept', 'application/json')
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end(function (err, res) {
+                    if (err) return done(err);
+
+                    expect(saveSpy).toHaveBeenCalledTimes(1);
 
                     return done();
                 });
