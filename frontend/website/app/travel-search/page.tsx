@@ -20,6 +20,7 @@ import {Button} from "@nextui-org/button";
 import {useAsyncList} from "@react-stately/data";
 import TravelChoiceDetails from "@/components/travel-choice-details";
 import {Key} from "@react-types/shared";
+import {Link} from "@nextui-org/link";
 
 
 export default function SearchPage() {
@@ -67,7 +68,7 @@ export default function SearchPage() {
                     setHasMore(results.length >= DEFAULT_LIMIT);
 
                     if (results.length > 0) {
-                        setStatusMessage(`These are the available choices from ${searchCriteria.originCity} to ${searchCriteria.destinationCity}${searchCriteria.type ? `, prioritizing traveling by ${searchCriteria.type}.` : '.'}`);
+                        setStatusMessage(`These are the available choices from ${searchCriteria.originCity} to ${searchCriteria.destinationCity}${searchCriteria.type ? `, prioritizing traveling by ${searchCriteria.type}` : ''}.`);
                     } else {
                         setStatusMessage('There are no available travel choices for your search');
                     }
@@ -95,7 +96,7 @@ export default function SearchPage() {
     return (
         <>
             <p className="inline-block max-w-lg text-center justify-center">
-                {statusMessage}
+                {statusMessage} <Link onPress={router.back} className={"cursor-pointer"}>New search</Link>
             </p>
             {isLoadingResults
                 ? <Spinner label="Searching..."/>

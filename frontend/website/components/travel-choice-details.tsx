@@ -29,7 +29,7 @@ export default function TravelChoiceDetails({travelChoice}: TravelChoiceDetailsP
         </CardHeader>
         <Divider/>
         <CardBody className={"flex flex-col gap-4"}>
-            <p className={price()}>Price: {travelChoice.price ?
+            <p className={price({class: "cursor-help"})}>Price: {travelChoice.price ?
                 <strong className="text-primary">{travelChoice.priceStr}</strong>
                 : <span title={"You should call the each transporter company before it can be booked"}
                         className="text-warning">{travelChoice.priceStr}</span>}</p>

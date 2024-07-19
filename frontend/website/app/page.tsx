@@ -7,15 +7,10 @@ import React, {Suspense, useEffect, useState} from "react";
 import {Spinner} from "@nextui-org/spinner";
 import SearchBox from "@/components/search-box";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
-import {
-    isTravelSearchCriteriaValid,
-    selectDestinationCities,
-    selectOriginCities,
-    selectTravelSearchCriteria
-} from "@/lib/selectors";
+import {isTravelSearchCriteriaValid, selectDestinationCities, selectOriginCities} from "@/lib/selectors";
 import {loadTravelRoutes} from "@/lib/api";
 import TravelChoiceSearchCriteria from "@tripolite/common/models/travel-choice-search-criteria";
-import {setSearchCriteria} from "@/lib/features/travelRoutes/travelsSearchSlice";
+import {resetSearch, setSearchCriteria} from "@/lib/features/travelRoutes/travelsSearchSlice";
 import {useRouter} from "next/navigation";
 import {setTravelRoutes} from "@/lib/features/travelRoutes/travelRoutesSlice";
 
@@ -27,7 +22,6 @@ export default function Home() {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
-
 
     useEffect(() => {
         setIsLoadingTravelRoutes(true);

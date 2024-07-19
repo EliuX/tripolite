@@ -11,6 +11,7 @@
 		"test": "echo \"Error: no test specified in the frontend\""
 	},
 	"dependencies": {
+		"@nextui-org/accordion": "^2.0.36",
 		"@nextui-org/button": "2.0.34",
 		"@nextui-org/card": "^2.0.31",
 		"@nextui-org/code": "2.0.29",
