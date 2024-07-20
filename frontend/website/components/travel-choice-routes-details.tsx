@@ -15,10 +15,10 @@ export default function TravelChoiceRoutesDetails({travelRoutes}: TravelChoiceRo
                    defaultExpandedKeys={expandedTravelRoute}
                    variant="shadow"
                    title="The routes your trip will follow"
-                   className={"max-w-xs max-h-[285px] overflow-scroll"}
+                   className={"max-w-screen-md max-h-[285px] overflow-scroll"}
                    items={travelRoutes}>
             {travelRoutes.map((item, index) => (
-                <AccordionItem key={item.uid}
+                <AccordionItem key={index}
                                aria-label={`Trip #${index + 1}: From ${item.originCity} to ${item.destinationCity}`}
                                title={`${item.originCity} → ${item.destinationCity}`}
                                startContent={TRAVEL_METHODS_ICONS[item.type]({

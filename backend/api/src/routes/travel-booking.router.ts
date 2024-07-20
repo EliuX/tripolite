@@ -7,17 +7,21 @@ import TravelBookingEntity from "../entities/travel-booking.entity";
 const router: Router = Router();
 const travelBookingRoutes = new TravelBookings();
 
-router.put(travelBookingRoutes.baseUrl, async (req: Request<NewTravelBooking | TravelBooking>, res: Response) => {
+router.put(travelBookingRoutes.baseUrl, async (req: Request<Partial<TravelBooking>>, res: Response) => {
     const data = req.body as Partial<TravelBooking>;
-    const entity = new TravelBookingEntity(data);
-
-    await travelBookingRepository.save(entity)
-        .then(result=> {
-            res.status(data.uid ? 200 : 201).send(result.toDto());
-        })
-        .catch((_)=> {
-            res.status(409);
-        });
+    try {
+        if(data.uid) {
+            const dataToUpdate = data as Pick<TravelBooking, 'personalInfo' | 'paymentDetails'>
+            const result = await travelBookingRepository.save(dataToUpdate)
+            res.status(200).send(result);
+        } else {
+            const dataToInsert = data as Pick<TravelBooking, 'travelChoice'>;
+            const result = await travelBookingRepository.save(dataToInsert)
+            res.status(201).send(result);
+        }
+    } catch (e: unknown) {
+        res.status(409);
+    }
 });
 
 router.get(travelBookingRoutes.baseUrl, async (req: Request, res: Response) => {

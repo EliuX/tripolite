@@ -14,10 +14,7 @@ export default function TravelBookingForm({travelBooking, handleBooking, readonl
         handleSubmit,
         formState: {isValid},
     } = useForm<TravelBookingModel>({
-        defaultValues: {
-            personalInfo: travelBooking.personalInfo,
-            paymentDetails: travelBooking.paymentDetails,
-        },
+        defaultValues: {...travelBooking},
     });
 
     return <form aria-readonly={readonly} onSubmit={handleSubmit(handleBooking)}>

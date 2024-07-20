@@ -24,10 +24,19 @@ const travelBookingsSlice = createSlice({
         },
         setTravelBookings(state, action: PayloadAction<TravelBooking[]>) {
             state.bookings = action.payload;
+        },
+        updateTravelBookings(state, action: PayloadAction<TravelBooking>) {
+            const itemToUpdateIndex = state.bookings.findIndex(t => t.uid === action.payload.uid);
+            state.bookings[itemToUpdateIndex] = action.payload;
         }
     }
 });
 
 
-export const {pushNewActiveBooking, setTravelBookings, setActiveBookingId} = travelBookingsSlice.actions;
+export const {
+    pushNewActiveBooking,
+    setTravelBookings,
+    setActiveBookingId,
+    updateTravelBookings
+} = travelBookingsSlice.actions;
 export default travelBookingsSlice.reducer;

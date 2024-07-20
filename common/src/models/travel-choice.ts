@@ -7,8 +7,6 @@ export default interface TravelChoice {
 }
 
 export class TravelChoiceModel implements TravelChoice, TravelChoiceSearchCriteria {
-    static counter = 0;
-    id = ++TravelChoiceModel.counter;
 
     cities: string[];
     public criteria: TravelChoiceSearchCriteria;

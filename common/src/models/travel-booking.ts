@@ -29,6 +29,10 @@ export class TravelBookingModel implements TravelBooking {
         return this.travelChoice.price ? TravelBookingStatus.Confirmed : TravelBookingStatus.Pending;
     }
 
+    get isPending() {
+        return this.status === TravelBookingStatus.Pending;
+    }
+
     toDto(): TravelBooking {
         return {
             uid: this.uid,
