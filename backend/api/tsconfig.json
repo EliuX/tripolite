@@ -1,16 +1,21 @@
 {
-
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "lib": ["ES6", "ES2021", "ESNext"],
+    "lib": [
+      "ES6",
+      "ES2021",
+      "ESNext"
+    ],
     "target": "ES2021",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
-      "@tripolite/common/*": ["../../common/src/*"],
+      "@tripolite/common/*": [
+        "../../common/src/*"
+      ]
     },
     "outDir": "./dist"
   },

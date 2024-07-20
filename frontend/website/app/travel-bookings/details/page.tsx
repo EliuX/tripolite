@@ -33,7 +33,7 @@ export default function TravelBookingDetailsPage() {
             createOrUpdateTravelBooking(submittedTravelBooking)
                 .then((updatedBooking) => {
                     setCompleted(true);
-                    setStatusMessageElem( 
+                    setStatusMessageElem(
                             <p className={"text-pretty text-primary"}>
                                 Your booking is completed!
                             </p>
